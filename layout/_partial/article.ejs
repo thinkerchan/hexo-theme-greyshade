@@ -1,0 +1,31 @@
+<% if(index) { %>
+  <div class="meta">
+    <%- partial('post/date', {type: "index"}) %>
+    <%- partial('post/tag', {type: "index"}) %>
+    <% if(item.comment & config.disqus_shortname) { %>
+      <span class="comments">
+        <a href="<%- item.permalink %>#disqus_thread">Comments</a>
+      </span>
+    <% } %>
+  </div>
+  <h1 class="title" itemprop="name">
+    <a href="<%- config.root %><%- item.path %>" itemprop="url"><%= item.title %></a>
+  </h1>
+  <div class="entry-content" itemprop="articleBody">
+    <% if (item.excerpt||theme.excerpt){ %>
+      <%- truncate( item.excerpt || strip_html(item.content),{length: 200,omission: ' '})+'...' %>
+      <a href="<%- config.root %><%- item.path %>" class="more-link"><%= theme.excerpt_link %></a>
+    <% } else { %>
+      <%- item.content %>
+    <% } %>
+  </div>
+<% } else { %>
+  <div class="meta">
+    <%- partial('post/date', {type: "post"}) %>
+    <% if(theme.print) { %>
+    <%- partial('post/print', {type: "post"}) %>
+    <% } %>
+  </div>
+  <h1 class="title" itemprop="name"><%= item.title %></h1>
+  <div class="entry-content" itemprop="articleBody"><%- item.content %></div>
+<% } %>

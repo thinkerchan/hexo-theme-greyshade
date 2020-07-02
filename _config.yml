@@ -1,0 +1,55 @@
+menu:
+  Home: /
+  Archives: archives
+  page:
+    About: about
+    Links: links
+
+widgets:
+- tag
+
+excerpt_link: 继续阅读
+excerpt: 200 #从文章内容中抽取前200字做梗概
+
+mathjax: false
+fancybox: false
+print: false
+
+social:
+  twitter: false
+  github: true
+  gplus: false
+  rss: true
+  linkedin: false
+  facebook: false
+  coderwall: false
+  pinterest: false
+  weibo: true
+
+twitter:
+  username:
+
+github:
+  username:
+
+gplus:
+  username:
+
+linkedin:
+  username:
+
+facebook:
+  username:
+
+coderwall:
+  username:
+
+pinterest:
+  username:
+
+addit:
+  facebook: false
+  twitter: true
+  gplus: true
+  pinit: false
+  publid:

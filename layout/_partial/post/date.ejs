@@ -1,0 +1,27 @@
+<%
+   var format = '';
+   var attr = '';
+   if(type =="archive") {
+     attr = 'span';
+     format = 'MMM DD';
+   } else if (type == "index") {
+     attr = 'div';
+     format = config.date_format;
+   } else if (type == "post") {
+     attr = 'div';
+     format = config.date_format;
+   }%>
+<<%- attr %> class="date">
+<% if(item.date) { %>
+<time datetime="<%= item.date.toDate().toISOString() %>"
+      <% if(item.updated) { %>
+      data-updated="true"
+      <% } %> itemprop="datePublished">
+  <%= item.date.format(format) %>
+</time>
+<% } %>
+
+<% var moment_updated = moment(item.updated); %>
+<% var same_day = moment_updated.isSame(item.date, 'day'); %>
+
+</<%- attr %>>

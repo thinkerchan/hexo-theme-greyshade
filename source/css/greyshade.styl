@@ -1,0 +1,239 @@
+// This is the main GREYSHADE stylus file
+
+html
+  height: 100%
+  overflow-x hidden
+
+body
+  background #FFF
+  font-family "-apple-system","Open Sans","HelveticaNeue-Light","Helvetica Neue Light","Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size 13px
+  height 100%
+  color #333
+
+::selection, ::-moz-selection, ::-webkit-selection
+  background #b2cce6
+  color color-background
+
+#header
+  height auto
+  border-bottom none
+  .subtitle
+    color #999
+    font-style italic
+  #main-nav
+    .aboutme
+      line-height 1.2em
+      color color-gray02
+      margin-top 10px
+    ul
+      li
+        font-size 15px
+  #sub-nav
+    float none
+    position relative
+    .social
+      float none
+    .search
+      float none
+      .alignright
+        float: none;
+  h1
+    float none
+  #main-nav
+    float none
+    margin-left 0px
+    ul
+      li
+        margin-left 0px
+        display block
+        a
+          padding 0px 0px
+
+.container
+  position relative
+  min-height 100%
+  .credit-box
+    color #AAA
+    font-size .8em
+    position fixed
+    bottom 20px
+    left 40px
+    a
+      color inherit
+      text-decoration underline
+  .mid-col
+    position absolute
+    right 0
+    left 0
+    min-height 100%
+    margin-left 270px
+    background #FFF
+    #banner
+      width 100%
+      small
+        margin-right 70px
+    footer.inner
+      text-align center
+      margin 0px 70px 0px 40px
+      width auto
+    .mid-col-container
+      padding 0px 70px 0px 40px
+      #content
+        width 100%
+        article
+          border-top none
+          .title
+            margin-left 0px
+          .entry-content
+            margin-left 0px
+            line-height 1.5em
+            .more-link
+              padding-left 20px
+              &:before
+                line-height 1.4em
+            .gist .gist-file .gist-data
+              .line_numbers
+                line-height inherit
+              pre
+                line-height inherit
+            h2
+              font-size 1.3em
+              color #574C4C
+              border-bottom none
+            h2::before
+              border-bottom none
+            blockquote
+              border-left 5px solid greyshade
+              background #FCFCFC
+            table
+              line-height 1.2em
+              td
+                text-align left
+          .meta
+            position relative
+            float right
+            top 0px
+            color #555
+            text-align right
+            width auto
+            .date::before
+              color #555
+              position relative
+              margin-right 10px
+            .tags::before
+              color #999
+              position relative
+              margin-right 10px
+            .print::before
+              color #555
+              position relative
+              margin-right 10px
+          h1.title
+            a
+              color #333
+              -webkit-transition color 0.3s
+              -moz-transition color 0.3s
+              -o-transition color 0.3s
+              transition color 0.3s
+            a:hover
+              color greyshade
+              -webkit-transition color 0.3s
+              -moz-transition color 0.3s
+              -o-transition color 0.3s
+              transition color 0.3s
+    footer
+      width 100%
+  .left-col
+    width 270px
+    position fixed
+    height 100%
+    background-color #000
+    .intrude-less
+      width 100%
+    #header
+      width 100%
+      padding 20% 0% 0% 15%
+      #main-nav
+        margin-top 10px
+      .profilepic
+        img
+          border-radius 50%
+          -moz-border-radius 50%
+          -webkit-border-radius 50%
+      a
+        color #EFEFEF
+        text-shadow 0 1px #333
+      a:hover
+        color greyshade
+      #sub-nav
+        margin-top 10px
+        .search::before
+          left 10px
+        .social
+          margin-bottom 10px
+
+.archives
+  .title
+    font-size 1.2em
+  article
+    .meta
+      line-height 1.5em
+      margin-top 0
+      span::before
+        padding-right 0
+
+a
+  color greyshade
+
+a:hover
+  color greyshade
+
+body
+  @media screen and (max-width: 1040px)
+      margin 0 0
+
+@media screen and (max-width: 640px)
+  .container
+    .left-col
+      position relative
+      width 100%
+    .mid-col
+      float none
+      width 100%
+      margin-left 0
+      .mid-col-container
+        #content
+          article
+            .meta
+              float: none;
+
+
+.widget
+    margin-bottom 30px
+    word-wrap break-word
+    .title
+      padding 0px 0px
+      font-size 1em
+      color white
+      border-bottom 1px solid color-border
+      font-weight normal
+
+    .entry
+      font-size 0.9em
+      padding 5px 10px
+
+    ul, ol, dl
+      list-style none
+      ul, ol, dl
+        list-style disc
+        margin-left 20px
+
+.widgets
+    small
+       margin-left 15px
+       color white
+       &:before
+         content '('
+       &:after
+         content ')'

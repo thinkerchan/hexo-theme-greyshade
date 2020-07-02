@@ -1,0 +1,18 @@
+<%
+   var attr = '';
+   if(type =="archive") {
+     attr = 'span';
+   } else if (type == "index") {
+     attr = 'div';
+   } %>
+<% if(item.tags && item.tags.length) { %>
+ <%
+  var tags = [];
+  item.tags.forEach(function(tag){
+    tags.push('<a href="' + config.root + tag.path + '">' + tag.name + '</a>');
+  });
+ %>
+ <<%- attr %> class="tags">
+   <%- tags.join(', ') %>
+ </<%- attr %>>
+<% } %>

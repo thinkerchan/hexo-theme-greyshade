@@ -1,0 +1,65 @@
+<div class="profilepic">
+  <script src="<%- config.root %>js/md5.js"></script>
+  <script type="text/javascript">
+    $(function () {
+      $('.profilepic').append(
+        "<img src='http://www.gravatar.com/avatar/"
+        + MD5("<%- config.email %>")
+        + "?s=160' alt='Profile Picture' style='width: 160px;' />");
+    });
+  </script>
+</div><!-- profilepic -->
+<h1><a href="<%- config.root %>"><%= config.author %></a></h1>
+<nav id="main-nav">
+  <ul class="main">
+    <% for (var i in theme.menu.page) { %>
+    <li>
+      <a href="<%- config.root %><%- theme.menu.page[i] %>"><%= i %></a>
+    </li>
+    <% } %>
+  </ul>
+  <% if(config.description) { %>
+  <section class="aboutme">
+    <p>
+      <%= config.description %>
+    </p>
+  </section>
+  <% } %>
+</nav><!-- main-nav -->
+<nav id="sub-nav">
+  <div class="social">
+    <% if(theme.social.gplus) { %>
+    <a class="google" href="http://plus.google.com/<%- theme.gplus.username %>" title="Google+">Google+</a>
+    <% } %>
+    <% if(theme.social.twitter) { %>
+    <a class="twitter" href="http://twitter.com/<%- theme.twitter.username %>" title="Twitter">Twitter</a>
+    <% } %>
+    <% if(theme.social.github) { %>
+    <a class="github" href="http://github.com/<%- theme.github.username %>" title="Github">Github</a>
+    <% } %>
+    <% if(theme.social.rss) { %>
+    <a class="rss" href="<%- config.root%>atom.xml" title="RSS">RSS</a>
+    <% } %>
+    <% if(theme.social.linkedin) { %>
+    <a class="linkedin" href="http://www.linkedin.com/in/<%- theme.linkedin.username %>" title="Linkedin">Linkedin</a>
+    <% } %>
+    <% if(theme.social.facebook) { %>
+    <a class="facebook" href="http://facebook.com/<%- theme.facebook.username %>" title="Facebook">Facebook</a>
+    <% } %>
+    <% if(theme.social.coderwall) { %>
+    <a class="coderwall" href="http://github.com/<%- theme.coderwall.username %>" title="Coderwall">Coderwall</a>
+    <% } %>
+    <% if(theme.social.pinterest) { %>
+    <a class="pinterest" href="http://pinterest.com/<%- theme.pinterest.username %>" title="Pinterest">Pinterest</a>
+    <% } %>
+  </div>
+</nav>
+<!-- sub-nav -->
+<!-- <nav id="widget-nav">
+  <div class="widgets">
+    <% theme.widgets.forEach(function(widget){ %>
+    <%- partial('../_widget/' + widget) %>
+    <% }); %>
+  </div>
+</nav> -->
+<!-- widget-nav -->
