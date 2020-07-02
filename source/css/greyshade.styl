@@ -15,6 +15,9 @@ body
   background #b2cce6
   color color-background
 
+a
+  text-decoration none
+
 #header
   height auto
   border-bottom none
@@ -61,7 +64,6 @@ body
     left 40px
     a
       color inherit
-      text-decoration underline
   .mid-col
     position absolute
     right 0
@@ -87,19 +89,18 @@ body
             margin-left 0px
           .entry-content
             margin-left 0px
-            line-height 1.5em
-            .more-link
-              padding-left 20px
-              &:before
-                line-height 1.4em
+            font-size 16px
+            line-height 1.8
+            word-wrap break-word
+            font-family "Arial,'Hiragino Sans GB',冬青黑,'Microsoft YaHei',微软雅黑,SimSun,宋体,Helvetica,Tahoma,'Arial sans-serif'"
+            -webkit-font-smoothing antialiased
+            font-weight 10
             .gist .gist-file .gist-data
               .line_numbers
                 line-height inherit
               pre
                 line-height inherit
             h2
-              font-size 1.3em
-              color #574C4C
               border-bottom none
             h2::before
               border-bottom none
@@ -120,7 +121,7 @@ body
             .date::before
               color #555
               position relative
-              margin-right 10px
+              // margin-right 10px
             .tags::before
               color #999
               position relative
@@ -148,30 +149,44 @@ body
     width 270px
     position fixed
     height 100%
+    overflow hidden
     background-color #000
     .intrude-less
       width 100%
     #header
       width 100%
-      padding 20% 0% 0% 15%
+      // padding 20% 0% 0% 15%
+      box-sizing border-box
       #main-nav
         margin-top 10px
+        li
+          text-align center
       .profilepic
+        width 160px
+        height 160px
+        margin 0 auto
+        margin-bottom 20px
         img
+          width 100%
+          height 100%
           border-radius 50%
           -moz-border-radius 50%
           -webkit-border-radius 50%
-      a
-        color #EFEFEF
-        text-shadow 0 1px #333
-      a:hover
-        color greyshade
+      .author-name
+        text-align center
+        font-size 2em
+        a
+          color #fff
+          text-shadow 0 1px #333
+        a:hover
+          color greyshade
       #sub-nav
         margin-top 10px
+        display flex
+        justify-content: space-around
         .search::before
           left 10px
-        .social
-          margin-bottom 10px
+        
 
 .archives
   .title
@@ -193,20 +208,30 @@ body
   @media screen and (max-width: 1040px)
       margin 0 0
 
-@media screen and (max-width: 640px)
-  .container
-    .left-col
-      position relative
-      width 100%
-    .mid-col
-      float none
-      width 100%
-      margin-left 0
-      .mid-col-container
-        #content
-          article
-            .meta
-              float: none;
+  @media screen and (max-width: 640px)
+    .container
+      .left-col
+        position relative
+        width 100%
+        #header
+          padding 10px 0
+        .profilepic
+          width 80px!important
+          height 80px!important
+      .mid-col
+        float none
+        width 100%
+        margin-left 0
+        .mid-col-container
+          padding 0 12px
+          #content
+            article
+              .meta
+                float: none;
+          .post-toc
+            float none
+            margin 0
+            max-width 100%
 
 
 .widget
@@ -237,3 +262,22 @@ body
          content '('
        &:after
          content ')'
+
+.post-toc
+  float right  
+  min-width 120px
+  max-width 260px
+  padding 8px
+  margin 0 0 15px 20px
+  border 1px solid #e2e2e2
+  font-size 14px
+  background-color #fff
+  .toc-title
+    font-weight bold
+    border-bottom 1px solid #e2e2e2
+  >ol,>ul
+    margin-left 0px!important
+  ol,ul
+    list-style none
+    margin-top 5px!important
+

@@ -10,7 +10,7 @@ header-height = 30px
     position relative
     padding-bottom 10px
   a
-    color color-gray01
+    color #fff
     transition color 0.3s
     &:hover
       color color-main
@@ -30,6 +30,10 @@ header-height = 30px
   >ul
     @media screen and (max-width: 600px)
       display none
+      // display flex
+      // justify-content space-around
+      // li
+      //   margin-right 0
     >li
       margin-left 50px
       inline-block()
@@ -203,7 +207,8 @@ header-height = 30px
     top 30px
     right 0
   @media screen and (max-width: 600px)
-    display none
+    display none!important
+    
   .search
     float left
     margin-top 1px
@@ -235,7 +240,7 @@ header-height = 30px
         outline none
   .social
     float left
-    margin-right 15px
+    // margin-right 15px
     @media screen and (max-width: 1040px)
       float none
       margin-right 0

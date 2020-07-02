@@ -17,7 +17,7 @@
     a
       link-colors(color-gray02, color-gray01)
       transition(0.3s)
-
+    
     .date, .tags, .comments, .print
       padding-left 30px
       position relative
@@ -27,20 +27,23 @@
         line-height 1.6em
         position absolute
         left 0
+        font-size .9em
       @media screen and (max-width: 800px)
         inline-block()
         margin-right 30px
 
+    
     .date:before
-      content "\f073"
+      content "发表于"
+      
     .tags:before
-      content "\f02c"
+      content "tag:"
     .comments:before
-      content "\f075"
+      content "评论"
     .print
       cursor pointer
     .print:before
-      content "\f02f"
+      content "print"
   hr
     height 0
     margin-top 20px

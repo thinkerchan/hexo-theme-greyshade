@@ -1,15 +1,7 @@
 <div class="profilepic">
-  <script src="<%- config.root %>js/md5.js"></script>
-  <script type="text/javascript">
-    $(function () {
-      $('.profilepic').append(
-        "<img src='http://www.gravatar.com/avatar/"
-        + MD5("<%- config.email %>")
-        + "?s=160' alt='Profile Picture' style='width: 160px;' />");
-    });
-  </script>
+  <img src='https://avatars0.githubusercontent.com/u/4480412?s=460&u=253d72d3aca9815abd98155b076afb256f646e61&v=4'>
 </div><!-- profilepic -->
-<h1><a href="<%- config.root %>"><%= config.author %></a></h1>
+<div class="author-name"><a href="<%- config.root %>"><%= config.author %></a></div>
 <nav id="main-nav">
   <ul class="main">
     <% for (var i in theme.menu.page) { %>

@@ -16,22 +16,23 @@ article
   .entry-content
     line-height 2
     text-align justify
-    a
-      &:hover
-        text-decoration underline
+    
     .more-link
       display block
       margin-top 16px
-      padding-left 30px
+      padding-left 15px
       position relative
       &:before
-        content "\f061"
-        font 1.3em font-icon
-        line-height 1.6em
+        content "»"
+        font 1.3em 
+        // line-height 1.6em
         position absolute
         left 0
+        top 50%
+        transform translateY(-50%)
+
     p, blockquote, ul, ol, dl, table, iframe, h1, h2, h3, h4, h5, h6, .video-container
-      margin-top 10px
+      margin-top 14px
     ul, ol, dl
       margin-left 20px
       ul, ol, dl
@@ -43,8 +44,6 @@ article
     p
       margin-top 10px
     h2
-      font-weight 300
-      border-bottom 1px solid color-gray04
       position relative
       &:before
         content ""
@@ -60,11 +59,13 @@ article
     blockquote
       background color-gray04
       border-left 5px solid color-gray03
-      font-size 1.2em
-      font-style italic
+      font-size 1em
+      font-style normal
       font-family font-serif
-      padding 0 30px 15px
+      padding 15px 20px
       margin-top 10px
+      > p:first-of-type
+        margin-top 0
       footer
         border-top none
         font-size 0.8em

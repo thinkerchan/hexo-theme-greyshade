@@ -27,5 +27,13 @@
     <% } %>
   </div>
   <h1 class="title" itemprop="name"><%= item.title %></h1>
-  <div class="entry-content" itemprop="articleBody"><%- item.content %></div>
+  <div class="entry-content" itemprop="articleBody">
+    <% if (!index && toc(item.content)) { %>
+    <div class="post-toc">
+      <div class="toc-title">TOC</div>
+      <%- toc(item.content) %>
+    </div>
+    <% } %>
+    <%- item.content %>
+  </div>
 <% } %>
