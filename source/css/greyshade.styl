@@ -35,8 +35,6 @@ a
   #sub-nav
     float none
     position relative
-    .social
-      float none
     .search
       float none
       .alignright
@@ -52,6 +50,7 @@ a
         display block
         a
           padding 0px 0px
+          text-shadow 1px 0 #000
 
 .container
   position relative
@@ -69,7 +68,7 @@ a
     right 0
     left 0
     min-height 100%
-    margin-left 270px
+    margin-left 250px
     background #FFF
     #banner
       width 100%
@@ -108,6 +107,7 @@ a
               border-left 5px solid greyshade
               background #FCFCFC
             table
+              width 100%
               line-height 1.2em
               td
                 text-align left
@@ -130,13 +130,16 @@ a
               color #555
               position relative
               margin-right 10px
+          .meta-index-post-entry
+            height inherit
+            float: none
+            position absolute
+            right 0
+            bottom -2px
+            top auto
           h1.title
             a
               color #333
-              -webkit-transition color 0.3s
-              -moz-transition color 0.3s
-              -o-transition color 0.3s
-              transition color 0.3s
             a:hover
               color greyshade
               -webkit-transition color 0.3s
@@ -146,16 +149,18 @@ a
     footer
       width 100%
   .left-col
-    width 270px
+    width 250px
     position fixed
     height 100%
     overflow hidden
     background-color #000
+    background-repeat no-repeat
+    background-position center top
+    background-size cover
     .intrude-less
       width 100%
     #header
       width 100%
-      // padding 20% 0% 0% 15%
       box-sizing border-box
       #main-nav
         margin-top 10px
@@ -186,7 +191,7 @@ a
         justify-content: space-around
         .search::before
           left 10px
-        
+
 
 .archives
   .title
@@ -264,7 +269,7 @@ body
          content ')'
 
 .post-toc
-  float right  
+  float right
   min-width 120px
   max-width 260px
   padding 8px

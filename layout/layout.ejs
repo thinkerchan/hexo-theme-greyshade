@@ -1,22 +1,47 @@
 <%- partial('_partial/head') %>
-
 <body>
   <div class="container">
-    <div class="left-col">
+    <div class="left-col" style="background-image:url('<%= theme.sidePic %>')">
       <div class="intrude-less">
         <header id="header" class="inner">
-          <%- partial('_partial/header') %>
+          <a href="<%- config.root %>">
+            <div class="profilepic"><img src='<%= theme.avatar %>'></div>
+          </a>
+          <div class="author-name"><a href="<%- config.root %>"><%= config.author %></a></div>
+          <% if(config.description) { %><p class="aboutme"><%= config.description %></p><% } %>
+          <nav id="main-nav">
+            <ul class="main">
+              <% for (var i in theme.menu.page) { %>
+              <li><a href="<%- config.root %><%- theme.menu.page[i] %>"><%= i %></a></li>
+              <% } %>
+            </ul>
+          </nav>
+          <nav id="sub-nav">
+            <div class="social">
+              <% if(theme.social.twitter) { %>
+              <a class="twitter" href="http://twitter.com/<%- theme.twitter.username %>" title="Twitter">Twitter</a>
+              <% } %>
+              <% if(theme.social.github) { %>
+              <a class="github" href="http://github.com/<%- theme.github.username %>" title="Github">Github</a>
+              <% } %>
+              <% if(theme.social.rss) { %>
+              <a class="rss" href="<%- config.root%>atom.xml" title="RSS">RSS</a>
+              <% } %>
+            </div>
+          </nav>
         <header>
       </div>
     </div>
     <div class="mid-col">
       <div class="mid-col-container">
-        <div id="content" class="inner"><%- body  %></div>
+        <div id="content" class="inner">
+          <%# body = index+post %>
+          <%- body  %>
+        </div>
       </div>
       <footer id="footer" class="inner">
-        <%- partial('_partial/footer') %>
+        Copyright © <%= (new Date).getFullYear();  %> - <%- config.author %>
       </footer>
-      <%- partial('_partial/after_footer') %>
     </div>
   </div>
 </body>

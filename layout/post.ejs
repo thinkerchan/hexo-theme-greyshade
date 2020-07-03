@@ -1,1 +1,12 @@
-<%- partial('_partial/post', {item: page, index: false}) %>
+<%- partial('_partial/article', {item: page, index: false})%>
+
+<% if (page.prev||page.next) { %>
+  <nav id="pagenavi">
+    <% if(page.prev){ %>
+    <a href="<%- config.root %><%- page.prev.path %>" class="prev">上一篇：<%= page.prev.title %></a>
+    <% } %>
+    <% if(page.next){ %>
+    <a href="<%- config.root %><%- page.next.path %>" class="next">下一篇：<%= page.next.title %></a>
+    <% } %>
+  </nav>
+<% } %>

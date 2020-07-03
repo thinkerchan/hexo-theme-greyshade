@@ -2,49 +2,29 @@ menu:
   Home: /
   Archives: archives
   page:
-    About: about
+    Archives: archives
     Links: links
+    About: about
+
+sidePic: https://tva1.sinaimg.cn/large/007S8ZIlgy1ggdmi6yapmj30dw0zk0wm.jpg
+avatar: https://tva1.sinaimg.cn/large/007S8ZIlgy1ggdmr1k3k0j305k05k74j.jpg
 
 widgets:
 - tag
 
 excerpt_link: 继续阅读
-excerpt: 200 #从文章内容中抽取前200字做梗概
-
-mathjax: false
-fancybox: false
-print: false
+excerpt: 200
 
 social:
   twitter: false
   github: true
-  gplus: false
   rss: true
-  linkedin: false
-  facebook: false
-  coderwall: false
-  pinterest: false
   weibo: true
 
 twitter:
   username:
 
 github:
-  username:
-
-gplus:
-  username:
-
-linkedin:
-  username:
-
-facebook:
-  username:
-
-coderwall:
-  username:
-
-pinterest:
   username:
 
 addit:
