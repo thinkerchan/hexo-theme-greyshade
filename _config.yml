@@ -9,9 +9,6 @@ menu:
 sidePic: https://tva1.sinaimg.cn/large/007S8ZIlgy1ggdmi6yapmj30dw0zk0wm.jpg
 avatar: https://tva1.sinaimg.cn/large/007S8ZIlgy1ggdmr1k3k0j305k05k74j.jpg
 
-widgets:
-- tag
-
 excerpt_link: 继续阅读
 excerpt: 200
 
@@ -27,9 +24,6 @@ twitter:
 github:
   username:
 
-addit:
-  facebook: false
-  twitter: true
-  gplus: true
-  pinit: false
-  publid:
+valine:
+  appId: XPJzs0FfufkFfuBjbJraqhbo-gzGzoHsz
+  appKey: QoS0zL4Y2xTDviitGOPkvCGv

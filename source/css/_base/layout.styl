@@ -1,62 +1,87 @@
-max-width = 1000px
+max-width = 1000px;
 
-*
-        margin 0
-        padding 0
+* {
+  margin: 0;
+  padding: 0;
+}
 
-body
-        background color-background
-        font-size 13px
-        font-weight 300
-        @media screen and (max-width: 1040px)
-                margin 0 20px
-        @media screen and (max-width: 600px)
-                font-size 13px
+body {
+  background: color-background;
+  font-size: 13px;
+  font-weight: 300;
 
-h1
-        font-size 2em
-        color #111
+  @media screen and (max-width: 1040px) {
+    margin: 0 20px;
+  }
 
-h2
-        font-size 1.5em
-        color greyshade
+  @media screen and (max-width: 600px) {
+    font-size: 13px;
+  }
+}
 
-h3
-        font-size 1.3em
-        color #333
+h1 {
+  font-size: 2em;
+  color: #111;
+}
 
-a
-        text-decoration none
-        outline-width 0
-        color color-main
+h2 {
+  font-size: 1.5em;
+  color: greyshade;
+}
 
-h1,h2,h3,h4,h5
-        font-weight 400
+h3 {
+  font-size: 1.3em;
+  color: #333;
+}
 
-.basic-alignment
-  &.left
-    float left
-    margin-right 1.5em
-  &.right
-    float right
-    margin-left 1.5em
-  &.center
-    display block
-    margin 0 auto 1.5em
-  &.left, &.right
-    margin-bottom: .8em
+a {
+  text-decoration: none;
+  outline-width: 0;
+  color: color-main;
+}
 
-.alignleft
-        float left
+h1, h2, h3, h4, h5 {
+  font-weight: 400;
+}
 
-.alignright
-        float right
+.basic-alignment {
+  &.left {
+    float: left;
+    margin-right: 1.5em;
+  }
 
-.clearfix
-        clearfix()
+  &.right {
+    float: right;
+    margin-left: 1.5em;
+  }
 
-.inner
-        width max-width
-        margin 0 auto
-        @media screen and (max-width: 1040px)
-                width 100%
+  &.center {
+    display: block;
+    margin: 0 auto 1.5em;
+  }
+
+  &.left, &.right {
+    margin-bottom: 0.8em;
+  }
+}
+
+.alignleft {
+  float: left;
+}
+
+.alignright {
+  float: right;
+}
+
+.clearfix {
+  clearfix();
+}
+
+.inner {
+  width: max-width;
+  margin: 0 auto;
+
+  @media screen and (max-width: 1040px) {
+    width: 100%;
+  }
+}
