@@ -2,6 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8">
+  <link rel="dns-prefetch" href="<%=config.url%>">
   <%
   var title = [];
   if (page.current > 1) title.push(__('page', page.current));
@@ -36,10 +37,16 @@
     <meta property="og:image" content="<%= config.cover %>"/>
   <% } %>
 
-  <link href="<%- config.root %>favicon.png" rel="icon">
-
   <link rel="alternate" href="<% if (theme.rss){ %><%- theme.rss %><% } else { %><%- config.root %>atom.xml<% } %>" title="<%= config.title %>" type="application/atom+xml">
 
   <link rel="preload" as="style" href="<%- config.root %>css/style.css" media="screen" type="text/css">
   <link rel="stylesheet" href="<%- config.root %>css/style.css" media="screen" type="text/css">
+
+  <link rel="icon" class="js-site-favicon" type="image/svg+xml" href="https://github.githubassets.com/favicons/favicon.svg">
+  <link href="https://unpkg.com" rel="dns-prefetch" />
+  <link href="https://busuanzi.ibruce.info" rel="dns-prefetch" />
+  <link href="https://cdn1.lncld.net" rel="dns-prefetch" />
+  <% if (theme.valine.appId) { %>
+  <link href="https://<%= theme.valine.appId.slice(0,8).toLowerCase() %>.api.lncld.net" rel="dns-prefetch" />
+  <% } %>
 </head>

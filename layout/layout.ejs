@@ -23,11 +23,18 @@
           <nav id="sub-nav">
             <div class="social">
               <% if(theme.social.twitter) { %>
-              <a class="twitter" href="http://twitter.com/<%- theme.twitter.username %>" title="Twitter">Twitter</a>
+              <a class="twitter" href="https://twitter.com/<%- theme.twitter.username %>" title="Twitter">Twitter</a>
+              <% } %>
+              <% if(theme.social.weibo) { %>
+              <a class="weibo" href="https://weibo.com/<%- theme.weibo.username %>" title="微博">微博</a>
               <% } %>
               <% if(theme.social.github) { %>
-              <a class="github" href="http://github.com/<%- theme.github.username %>" title="Github">Github</a>
+              <a class="github" href="https://github.com/<%- theme.github.username %>" title="Github">Github</a>
               <% } %>
+              <% if(theme.social.yuque) { %>
+              <a class="yuque" href="https://yuque.com/<%- theme.yuque.username %>" title="语雀">语雀</a>
+              <% } %>
+              
               <% if(theme.social.rss) { %>
               <a class="rss" href="<%- config.root%>atom.xml" title="RSS">RSS</a>
               <% } %>

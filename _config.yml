@@ -2,9 +2,9 @@ menu:
   Home: /
   Archives: archives
   page:
-    Archives: archives
-    Links: links
-    About: about
+    所有文章: archives
+    收藏站点: friendlinks
+    生命表: life
 
 sidePic: https://tva1.sinaimg.cn/large/007S8ZIlgy1ggdmi6yapmj30dw0zk0wm.jpg
 avatar: https://tva1.sinaimg.cn/large/007S8ZIlgy1ggdmr1k3k0j305k05k74j.jpg
@@ -13,17 +13,24 @@ excerpt_link: 继续阅读
 excerpt: 200
 
 social:
-  twitter: false
+  twitter: true
   github: true
+  weibo: false
+  yuque: true
   rss: true
-  weibo: true
 
 twitter:
-  username:
+  username: thinkerchan
 
 github:
-  username:
+  username: thinkerchan
+
+weibo:
+  username: thinkerchank
+
+yuque:
+  username: testdog
 
 valine:
-  appId: 
-  appKey: 
+  appId: XPJzs0FfufkFfuBjbJraqhbo-gzGzoHsz
+  appKey: QoS0zL4Y2xTDviitGOPkvCGv
