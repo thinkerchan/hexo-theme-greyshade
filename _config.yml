@@ -1,10 +1,12 @@
 menu:
   Home: /
   Archives: archives
+  cate: cate
   page:
-    所有文章: archives
-    收藏站点: friendlinks
-    生命表: life
+    归档: archives
+    专题: categories
+    友链: friendlinks
+    表: life
 
 sidePic: https://tva1.sinaimg.cn/large/007S8ZIlgy1ggdmi6yapmj30dw0zk0wm.jpg
 avatar: https://tva1.sinaimg.cn/large/007S8ZIlgy1ggdmr1k3k0j305k05k74j.jpg

@@ -1,0 +1,46 @@
+
+<% 
+  let listArr = site.categories.data
+  for( let i in listArr ) {
+    listArr[i].list = []
+  }
+
+  let posts = [];
+  site.posts.each((item)=>{
+    if (item.categories.data.length) {
+      let id = item.categories.data[0]._id      
+      listArr[id] && listArr[id].list.push({
+        title: item.title,
+        link: item.path
+      })
+    }
+  });
+%>
+
+<article>
+  <% let tocHTML = '' %> 
+  <h1 class="title">专题</h1>
+  <div class="entry-content">
+    <% for( let i in listArr ) { 
+      tocHTML+= `<h3 id="${listArr[i]._id}">${(listArr[i].name).toLowerCase()}</h3>`
+    } %>
+
+    <% if (tocHTML.length) { %>
+      <div class="post-toc">
+        <div class="toc-title">TOC</div>
+        <%- toc(tocHTML) %> 
+      </div>
+    <% } %>
+
+    <% for( let i in listArr ) { %>
+      <h3 id="<%=listArr[i]._id%>">「 <%= (listArr[i].name).toLowerCase()%> 」</h3>
+      <ul>
+        <% for( let index = 0; index < listArr[i].list.length; index++ ) { %>
+          <li>
+            <a href="<%- config.root %><%- listArr[i].list[index].link %>"><%= listArr[i].list[index].title %> </a>
+          </li>
+          <% } %>
+      </ul>
+    <% } %>
+  </div>
+</article>

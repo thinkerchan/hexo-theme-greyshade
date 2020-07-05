@@ -48,7 +48,8 @@
         <div id="content" class="inner">
           <%- body  %>
         </div>
-        <% if (!page.__index && theme.valine.appId && theme.valine.appKey ) { %>
+        <% let useCmt = (typeof page.comments == 'boolean' && !page.comments) ? false :true %> 
+        <% if (!page.__index && theme.valine.appId && theme.valine.appKey && useCmt ) { %>
           <div class="post-comments" id="Jcmt">
             <h1 class="post-comments-title">访客评论</h1>
             <div id="Jcomment"></div>
@@ -62,7 +63,7 @@
       </footer>
     </div>
   </div>
-  <% if (!page.__index && theme.valine.appId && theme.valine.appKey ) { %>
+  <% if (!page.__index && theme.valine.appId && theme.valine.appKey && useCmt ) { %>
   <script src="https://cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
   <script src='https://unpkg.com/valine@1.4.14/dist/Valine.min.js'></script>
   <script>

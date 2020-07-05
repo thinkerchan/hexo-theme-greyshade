@@ -18,9 +18,11 @@
   </div>
 
 <% } else { %>
-  <div class="meta">
-    <%- partial('post/date', {type: "post"}) %>
-  </div>
+  <% if (!item.hideDate) { %>
+    <div class="meta">
+      <%- partial('post/date', {type: "post"}) %>
+    </div>
+  <% } %>
   <h1 class="title" itemprop="name"><%= item.title %></h1>
   <div class="entry-content" itemprop="articleBody">
     <% if (!index && toc(item.content)) { %>

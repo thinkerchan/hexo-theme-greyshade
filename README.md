@@ -32,3 +32,5 @@ hexo主题开发,优化点
     * 底部导航条样式 ✔️
     * 顶部页面入口 ✔️
 * 简单统计 ✔️
+* 专题文章分类(cate) ✔️  // 需要hexo new page catagories， 设置layout: cate
+* 新增页面参数 hideDate ✔️ // 隐藏发表日期
