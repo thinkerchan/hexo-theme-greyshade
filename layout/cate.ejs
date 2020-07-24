@@ -32,7 +32,7 @@
 
 <article>
   <% let tocHTML = '' %>
-  <h1 class="title">专题</h1>
+  <h1 class="title"><%- page.title %></h1>
   <div class="entry-content">
     <% for( let i in listArr ) {
       tocHTML+= `<h3 id="${listArr[i]._id}">${(listArr[i].name).toLowerCase()}</h3>`

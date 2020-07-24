@@ -34,7 +34,7 @@
               <% if(theme.social.yuque) { %>
               <a class="yuque" href="https://yuque.com/<%- theme.yuque.username %>" title="语雀">语雀</a>
               <% } %>
-              
+
               <% if(theme.social.rss) { %>
               <a class="rss" href="<%- config.root%>atom.xml" title="RSS">RSS</a>
               <% } %>
@@ -48,7 +48,7 @@
         <div id="content" class="inner">
           <%- body  %>
         </div>
-        <% let useCmt = (typeof page.comments == 'boolean' && !page.comments) ? false :true %> 
+        <% let useCmt = (typeof page.comments == 'boolean' && !page.comments) ? false :true %>
         <% if (!page.__index && theme.valine.appId && theme.valine.appKey && useCmt ) { %>
           <div class="post-comments" id="Jcmt">
             <h1 class="post-comments-title">访客评论</h1>
@@ -71,7 +71,7 @@
       el: '#Jcomment',
       appId: '<%= theme.valine.appId %>',
       appKey: '<%= theme.valine.appKey %>' ,
-      notify: false,
+      notify: true,
       verify: false,
       avatar: 'mm',
       pageSize: '10',
@@ -80,6 +80,8 @@
   </script>
   <% } %>
   <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-  <script async src="https://s5.cnzz.com/z_stat.php?id=1276809529&web_id=1276809529"></script>
+  <% if (theme.umeng) { %>
+  <script async src="https://s5.cnzz.com/z_stat.php?id=<%= theme.umeng %>&web_id=<%= theme.umeng %>"></script>
+  <% } %>
 </body>
 </html>

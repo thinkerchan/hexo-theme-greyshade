@@ -7,6 +7,7 @@ menu:
     专题: categories
     友链: friendlinks
     关于: life
+    搜索: search
 
 sidePic: https://tva1.sinaimg.cn/large/007S8ZIlgy1ggdmi6yapmj30dw0zk0wm.jpg
 avatar: https://tva1.sinaimg.cn/large/007S8ZIlgy1ggdmr1k3k0j305k05k74j.jpg
@@ -33,6 +34,10 @@ weibo:
 yuque:
   username: testdog
 
+# https://www.leancloud.cn/
 valine:
   appId: XPJzs0FfufkFfuBjbJraqhbo-gzGzoHsz
   appKey: QoS0zL4Y2xTDviitGOPkvCGv
+
+# https://web.umeng.com/
+umeng: 1276809529

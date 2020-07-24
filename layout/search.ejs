@@ -1,0 +1,253 @@
+<article>
+  <h1 class="title"><%= page.title  %> </h1>
+  <div class="entry-content wrapper">
+    <div id="search">
+      <input type="text" placeholder="请输入关键字" id="Jinput">
+    </div>
+    <div class="info">
+      本次搜索结果共<span id="Jcount">0</span>条
+    </div>
+    <div id="JresList"></div>
+
+  <%
+    let posts = site.posts.data
+    let searchData = []
+    posts.forEach(item => {
+      searchData.push({
+        title: trim(item.title),
+        content: trim(strip_html(item.content)).replace(/&#123;/g,'{').replace(/&#125;/g,'}'),
+        url:'/'+item.path,
+        link: item.link,
+        plink: item.permalink
+      })
+    });
+    let _searchData = JSON.stringify(searchData)
+  %>
+
+
+    <script>
+      let searchData = <%- _searchData %>
+
+      function getIndexByWord(word, text, caseSensitive) {
+        var wordLen = word.length;
+
+        if (wordLen === 0) {
+          return [];
+        }
+
+        var startPosition = 0,
+          position = [],
+          index = [];
+
+        if (!caseSensitive) {
+          text = text.toLowerCase();
+          word = word.toLowerCase();
+        }
+
+        while ( (position = text.indexOf(word, startPosition) ) > -1) {
+          index.push({
+            position: position,
+            word: word
+          });
+
+          startPosition = position + wordLen;
+        }
+        return index;
+      }
+
+      function highlightKeyword(text, slice) {
+        var result = '';
+        var prevEnd = slice.start;
+        slice.hits.forEach(function (hit) {
+          result += text.substring(prevEnd, hit.position);
+          var end = hit.position + hit.length;
+          result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+          prevEnd = end;
+        });
+        result += text.substring(prevEnd, slice.end);
+        return result;
+      }
+
+      function searchFunc(search_id, content_id) {
+
+        var DB = searchData;
+        var input = document.getElementById(search_id);
+        var resultContent = document.getElementById(content_id);
+
+        var inputEventFunction = function () {
+          var searchText = input.value.trim().toLowerCase();
+
+          if(!searchText){
+            return;
+          }
+
+          var keywords = searchText.split(/[\s\-]+/);
+          if (keywords.length > 1) {
+            keywords.push(searchText);
+          }
+
+          var resultItems = [];
+
+          if (searchText.length > 0) {
+
+            DB.forEach(function (item) {
+              var isMatch = false;
+              var hitCount = 0;
+              var searchTextCount = 0;
+              var title = item.title ? item.title.trim() : '';
+              var titleInLowerCase = title.toLowerCase();
+              var content = item.content ? item.content.trim().replace(/<[^>]+>/g, "") : '';
+              var contentInLowerCase = content.toLowerCase();
+              var articleUrl = decodeURIComponent(item.url);
+
+              var indexOfTitle = [];
+              var indexOfContent = [];
+
+              keywords.forEach(function (keyword) {
+                indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+              });
+
+
+              if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                isMatch = true;
+                hitCount = indexOfTitle.length + indexOfContent.length;
+              }
+
+              if (isMatch) {
+
+                [indexOfTitle, indexOfContent].forEach(function (index) {
+                  index.sort(function (itemLeft, itemRight) {
+                    if (itemRight.position !== itemLeft.position) {
+                      return itemRight.position - itemLeft.position;
+                    } else {
+                      return itemLeft.word.length - itemRight.word.length;
+                    }
+                  });
+                });
+
+                function mergeIntoSlice(text, start, end, index) {
+                  var item = index[index.length - 1];
+                  var position = item.position;
+                  var word = item.word;
+                  var hits = [];
+                  var searchTextCountInSlice = 0;
+                  while (position + word.length <= end && index.length != 0) {
+                    if (word === searchText) {
+                      searchTextCountInSlice++;
+                    }
+                    hits.push({ position: position, length: word.length });
+                    var wordEnd = position + word.length;
+
+                    index.pop();
+                    while (index.length != 0) {
+                      item = index[index.length - 1];
+                      position = item.position;
+                      word = item.word;
+                      if (wordEnd > position) {
+                        index.pop();
+                      } else {
+                        break;
+                      }
+                    }
+                  }
+                  searchTextCount += searchTextCountInSlice;
+                  return {
+                    hits: hits,
+                    start: start,
+                    end: end,
+                    searchTextCount: searchTextCountInSlice
+                  };
+                }
+
+                var slicesOfTitle = [];
+                if (indexOfTitle.length != 0) {
+                  slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                }
+
+                var slicesOfContent = [];
+                while (indexOfContent.length != 0) {
+                  var item = indexOfContent[indexOfContent.length - 1];
+                  var position = item.position;
+                  var word = item.word;
+
+                  var start = position - 20;
+                  var end = position + 80;
+                  if (start < 0) {
+                    start = 0;
+                  }
+                  if (end < position + word.length) {
+                    end = position + word.length;
+                  }
+                  if (end > content.length) {
+                    end = content.length;
+                  }
+                  slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                }
+
+                slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                  if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                    return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                  } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                    return sliceRight.hits.length - sliceLeft.hits.length;
+                  } else {
+                    return sliceLeft.start - sliceRight.start;
+                  }
+                });
+
+                slicesOfContent = slicesOfContent.slice(0, 2);
+
+                var resultItem =  "<li class='item'><a target='_blank' href='" + articleUrl + "' class='search-result-title'>" + (slicesOfTitle.length? highlightKeyword(title, slicesOfTitle[0]) : title)+ "</a>";
+
+                slicesOfContent.forEach(function (slice) {
+                  resultItem += "<a target='_blank' class='search-result-link' href='" + articleUrl + "'>" +
+                    "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                    "...</p>" + "</a>";
+                });
+
+                resultItem += "</li>";
+                resultItems.push({
+                  item: resultItem,
+                  searchTextCount: searchTextCount,
+                  hitCount: hitCount,
+                  id: resultItems.length
+                });
+              }
+            })
+            Jcount.innerHTML = resultItems.length;
+          };
+
+          if (keywords.length === 1 && keywords[0] === "") {
+            resultContent.innerHTML = '<div id="no-result"></div>'
+          } else if (resultItems.length === 0) {
+            resultContent.innerHTML = '<div id="no-result"></div>'
+          } else {
+            resultItems.sort(function (resultLeft, resultRight) {
+              if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                return resultRight.searchTextCount - resultLeft.searchTextCount;
+              } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                return resultRight.hitCount - resultLeft.hitCount;
+              } else {
+                return resultRight.id - resultLeft.id;
+              }
+            });
+            var searchResultList = '<ul class=\"search-result-list\">';
+            resultItems.forEach(function (result) {
+              searchResultList += result.item;
+            })
+            searchResultList += "</ul>";
+            resultContent.innerHTML = searchResultList;
+          }
+        }
+
+        input.addEventListener('input', inputEventFunction);
+        input.addEventListener('keydown', (e)=>{
+          if (e.keyCode=='13') {
+            inputEventFunction()
+          }
+        });
+      }
+      searchFunc('Jinput', 'JresList')
+    </script>
+  </div>
+</article>
