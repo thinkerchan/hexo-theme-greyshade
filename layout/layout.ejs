@@ -64,24 +64,70 @@
     </div>
   </div>
   <% if (!page.__index && theme.valine.appId && theme.valine.appKey && useCmt ) { %>
-  <script src="https://cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-  <script src='https://unpkg.com/valine@1.4.14/dist/Valine.min.js'></script>
   <script>
-    new Valine({
-      el: '#Jcomment',
-      appId: '<%= theme.valine.appId %>',
-      appKey: '<%= theme.valine.appKey %>' ,
-      notify: true,
-      verify: false,
-      avatar: 'mm',
-      pageSize: '10',
-      placeholder:'Valine+Leancloud提供评论'
+    let mod ={
+      timePrefix:'t-',
+      expire:1000*60*60,
+      load:function(libName,libUrl,cb){
+        let aval = (new Date).getTime() - localStorage.getItem(this.timePrefix+libName) < this.expire;
+        let libStr = localStorage.getItem(libName)
+        if (aval && libStr) {
+          this.parseAndInsert(libStr)
+          cb && cb(libStr);
+        }else{
+          this.ajax(libUrl,(str)=>{
+            localStorage.setItem(libName, str)
+            localStorage.setItem(this.timePrefix+libName, (new Date).getTime())
+            this.parseAndInsert(str)
+            cb && cb(str);
+          })
+        }
+      },
+      parseAndInsert(rawStr) {
+        let script = document.createElement('script')
+        script.innerHTML = rawStr
+        document.body.appendChild(script)
+      },
+      ajax:function(url,cb){
+        let xhr = new XMLHttpRequest;
+        xhr.open('get', url, true)
+        xhr.send();
+        xhr.onreadystatechange = function () {
+          if (xhr.readyState == 4 && xhr.status == 200) {
+            cb && cb(xhr.responseText)
+          }else{
+            console.log(xhr.readyState,xhr.status);
+          }
+        }
+      },
+      genCmt(){
+        window.Valine && new Valine({
+          el: '#Jcomment',
+          appId: '<%= theme.valine.appId %>',
+          appKey: '<%= theme.valine.appKey %>',
+          notify: true,
+          verify: false,
+          avatar: 'mm',
+          pageSize: '10',
+          placeholder: 'Valine+Leancloud提供评论'
+        })
+      }
+    }
+
+    mod.load('lib-av', 'https://cdn1.lncld.net/static/js/3.0.4/av-min.js', () => {
+      mod.load('lib-cmt', 'https://unpkg.com/valine@1.4.14/dist/Valine.min.js',()=>{
+        let t = setTimeout(() => {
+          mod.genCmt()
+          clearTimeout(t)
+          t = null;
+        }, 100);
+      })
     })
   </script>
   <% } %>
-  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <script async defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
   <% if (theme.umeng) { %>
-  <script async src="https://s5.cnzz.com/z_stat.php?id=<%= theme.umeng %>&web_id=<%= theme.umeng %>"></script>
+  <script async defer src="https://s5.cnzz.com/z_stat.php?id=<%= theme.umeng %>&web_id=<%= theme.umeng %>"></script>
   <% } %>
 </body>
 </html>

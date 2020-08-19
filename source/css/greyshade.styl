@@ -168,12 +168,18 @@ a {
           }
 
           .meta {
-            position: relative;
-            // float: right;
-            top: 0px;
+            position: static;
             color: #555;
             text-align: right;
             width: auto;
+            &.meta-art{
+              position absolute;
+              right 0;
+              top: 0px;
+              font-size 14px;
+              line-height inherit;
+              margin-top 0;
+            }
 
             .date::before {
               color: #555;
@@ -207,6 +213,7 @@ a {
           }
 
           h1.title {
+            position relative;
             a {
               color: #333;
             }

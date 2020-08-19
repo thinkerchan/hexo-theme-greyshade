@@ -22,7 +22,7 @@ Hexo-theme-greyshade优化点:
 * 样式优化 ✔️
 * 去除所有不必要的js ✔️
 * 去除所有不必要的社交逻辑 ✔️
-* ~~缓存js到localstorage~~ (站内js几乎没有,不需要处理)
+* 缓存js到localstorage ✔️
 * 添加搜索 ✔️(站内搜索) // 需要hexo new page search 设置layout: search
 * 添加rss ✔️
 * 文章页内的前进后退按钮 ✔️
