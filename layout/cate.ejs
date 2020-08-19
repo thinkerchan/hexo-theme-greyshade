@@ -1,6 +1,8 @@
 
 <%
   let listArr = site.categories.data
+  console.log(listArr);
+
   for( let i in listArr ) {
     listArr[i].list = []
   }
@@ -35,7 +37,7 @@
   <h1 class="title"><%- page.title %></h1>
   <div class="entry-content">
     <% for( let i in listArr ) {
-      tocHTML+= `<h3 id="${listArr[i]._id}">${(listArr[i].name).toLowerCase()}</h3>`
+      tocHTML+= (listArr[i].list.length ? `<h3 id="${listArr[i]._id}">${(listArr[i].name).toLowerCase()}</h3>` :'')
     } %>
 
     <% if (tocHTML.length) { %>
@@ -46,14 +48,16 @@
     <% } %>
 
     <% for( let i in listArr ) { %>
-      <h3 id="<%=listArr[i]._id%>">「 <%= (listArr[i].name).toLowerCase()%> 」</h3>
-      <ul>
-        <% for( let index = 0; index < listArr[i].list.length; index++ ) { %>
-          <li>
-            <a href="<%- config.root %><%- listArr[i].list[index].link %>"><%= listArr[i].list[index].title %> </a>
-          </li>
-          <% } %>
-      </ul>
+      <% if (listArr[i].list.length) { %>
+        <h3 id="<%=listArr[i]._id%>">「 <%= (listArr[i].name).toLowerCase()%> 」</h3>
+        <ul>
+          <% for( let index = 0; index < listArr[i].list.length; index++ ) { %>
+            <li>
+              <a href="<%- config.root %><%- listArr[i].list[index].link %>"><%= listArr[i].list[index].title %> </a>
+            </li>
+            <% } %>
+        </ul>
+      <% } %>
     <% } %>
   </div>
 </article>
