@@ -44,4 +44,4 @@ Hexo-theme-greyshade优化点:
 ## 其他
 如果这个主题和教程对你有帮助, 点个star就是坠吼的。当然微信请我喝杯咖啡也很excited的。
 
-![请作者喝咖啡](https://tva1.sinaimg.cn/large/007S8ZIlly1ghvz0177exj30j40hyth5.jpg)
+![请作者喝咖啡](https://tva1.sinaimg.cn/large/007S8ZIlgy1ghx3hwqq1sj308c07uglx.jpg)
