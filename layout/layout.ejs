@@ -96,7 +96,7 @@
           if (xhr.readyState == 4 && xhr.status == 200) {
             cb && cb(xhr.responseText)
           }else{
-            console.log(xhr.readyState,xhr.status);
+            // console.log(xhr.readyState,xhr.status);
           }
         }
       },
@@ -114,7 +114,7 @@
       }
     }
 
-    mod.load('lib-av', 'https://cdn1.lncld.net/static/js/3.0.4/av-min.js', () => {
+    mod.load('lib-av', 'https://cdn.jsdelivr.net/npm/leancloud-storage@3.0.1/dist/av-min.js', () => {
       mod.load('lib-cmt', 'https://unpkg.com/valine@1.4.14/dist/Valine.min.js',()=>{
         let t = setTimeout(() => {
           mod.genCmt()
