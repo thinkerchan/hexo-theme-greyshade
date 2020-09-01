@@ -9,7 +9,7 @@
     </div>
     <div id="JresList"></div>
 
-  <%
+    <%
     let posts = site.posts.data
     let searchData = []
     posts.forEach(item => {
@@ -28,226 +28,158 @@
     <script>
       let searchData = <%- _searchData %>
 
-      function getIndexByWord(word, text, caseSensitive) {
-        var wordLen = word.length;
-
-        if (wordLen === 0) {
-          return [];
-        }
-
-        var startPosition = 0,
-          position = [],
-          index = [];
-
-        if (!caseSensitive) {
-          text = text.toLowerCase();
-          word = word.toLowerCase();
-        }
-
-        while ( (position = text.indexOf(word, startPosition) ) > -1) {
-          index.push({
-            position: position,
-            word: word
-          });
-
-          startPosition = position + wordLen;
-        }
-        return index;
-      }
-
-      function highlightKeyword(text, slice) {
-        var result = '';
-        var prevEnd = slice.start;
-        slice.hits.forEach(function (hit) {
-          result += text.substring(prevEnd, hit.position);
-          var end = hit.position + hit.length;
-          result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
-          prevEnd = end;
-        });
-        result += text.substring(prevEnd, slice.end);
-        return result;
-      }
-
-      function searchFunc(search_id, content_id) {
-
-        var DB = searchData;
-        var input = document.getElementById(search_id);
-        var resultContent = document.getElementById(content_id);
-
-        var inputEventFunction = function () {
-          var searchText = input.value.trim().toLowerCase();
-
-          if(!searchText){
-            return;
-          }
-
-          var keywords = searchText.split(/[\s\-]+/);
-          if (keywords.length > 1) {
-            keywords.push(searchText);
-          }
-
-          var resultItems = [];
-
-          if (searchText.length > 0) {
-
-            DB.forEach(function (item) {
-              var isMatch = false;
-              var hitCount = 0;
-              var searchTextCount = 0;
-              var title = item.title ? item.title.trim() : '';
-              var titleInLowerCase = title.toLowerCase();
-              var content = item.content ? item.content.trim().replace(/<[^>]+>/g, "") : '';
-              var contentInLowerCase = content.toLowerCase();
-              var articleUrl = decodeURIComponent(item.url);
-
-              var indexOfTitle = [];
-              var indexOfContent = [];
-
-              keywords.forEach(function (keyword) {
-                indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
-                indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
-              });
-
-
-              if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
-                isMatch = true;
-                hitCount = indexOfTitle.length + indexOfContent.length;
-              }
-
-              if (isMatch) {
-
-                [indexOfTitle, indexOfContent].forEach(function (index) {
-                  index.sort(function (itemLeft, itemRight) {
-                    if (itemRight.position !== itemLeft.position) {
-                      return itemRight.position - itemLeft.position;
-                    } else {
-                      return itemLeft.word.length - itemRight.word.length;
-                    }
-                  });
-                });
-
-                function mergeIntoSlice(text, start, end, index) {
-                  var item = index[index.length - 1];
-                  var position = item.position;
-                  var word = item.word;
-                  var hits = [];
-                  var searchTextCountInSlice = 0;
-                  while (position + word.length <= end && index.length != 0) {
-                    if (word === searchText) {
-                      searchTextCountInSlice++;
-                    }
-                    hits.push({ position: position, length: word.length });
-                    var wordEnd = position + word.length;
-
-                    index.pop();
-                    while (index.length != 0) {
-                      item = index[index.length - 1];
-                      position = item.position;
-                      word = item.word;
-                      if (wordEnd > position) {
-                        index.pop();
-                      } else {
-                        break;
-                      }
-                    }
-                  }
-                  searchTextCount += searchTextCountInSlice;
-                  return {
-                    hits: hits,
-                    start: start,
-                    end: end,
-                    searchTextCount: searchTextCountInSlice
-                  };
-                }
-
-                var slicesOfTitle = [];
-                if (indexOfTitle.length != 0) {
-                  slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
-                }
-
-                var slicesOfContent = [];
-                while (indexOfContent.length != 0) {
-                  var item = indexOfContent[indexOfContent.length - 1];
-                  var position = item.position;
-                  var word = item.word;
-
-                  var start = position - 20;
-                  var end = position + 80;
-                  if (start < 0) {
-                    start = 0;
-                  }
-                  if (end < position + word.length) {
-                    end = position + word.length;
-                  }
-                  if (end > content.length) {
-                    end = content.length;
-                  }
-                  slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
-                }
-
-                slicesOfContent.sort(function (sliceLeft, sliceRight) {
-                  if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
-                    return sliceRight.searchTextCount - sliceLeft.searchTextCount;
-                  } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
-                    return sliceRight.hits.length - sliceLeft.hits.length;
-                  } else {
-                    return sliceLeft.start - sliceRight.start;
-                  }
-                });
-
-                slicesOfContent = slicesOfContent.slice(0, 2);
-
-                var resultItem =  "<li class='item'><a target='_blank' href='" + articleUrl + "' class='search-result-title'>" + (slicesOfTitle.length? highlightKeyword(title, slicesOfTitle[0]) : title)+ "</a>";
-
-                slicesOfContent.forEach(function (slice) {
-                  resultItem += "<a target='_blank' class='search-result-link' href='" + articleUrl + "'>" +
-                    "<p class=\"search-result\">" + highlightKeyword(content, slice) +
-                    "...</p>" + "</a>";
-                });
-
-                resultItem += "</li>";
-                resultItems.push({
-                  item: resultItem,
-                  searchTextCount: searchTextCount,
-                  hitCount: hitCount,
-                  id: resultItems.length
-                });
-              }
-            })
-            Jcount.innerHTML = resultItems.length;
-          };
-
-          if (keywords.length === 1 && keywords[0] === "") {
-            resultContent.innerHTML = '<div id="no-result"></div>'
-          } else if (resultItems.length === 0) {
-            resultContent.innerHTML = '<div id="no-result"></div>'
-          } else {
-            resultItems.sort(function (resultLeft, resultRight) {
-              if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
-                return resultRight.searchTextCount - resultLeft.searchTextCount;
-              } else if (resultLeft.hitCount !== resultRight.hitCount) {
-                return resultRight.hitCount - resultLeft.hitCount;
-              } else {
-                return resultRight.id - resultLeft.id;
-              }
+        let searchMod = {
+          searchTitle: true, //  是否在标题中搜索
+          searchContent: 1, // 是否在内容中搜索
+          contentPieces: 2, // 内容切割块数
+          excludes: ['{{', '}}', '{', '}', '.', '/', '\\', '。'], // 粗略过滤部分字符串
+          contentDecoration: 50, // 内容命中关键字增加前后50个字
+          roughFetch: false, // 是否粗略提取, 仅对文本内容有效
+          trimStr(str) {
+            return str.trim().toLowerCase()
+          },
+          init(input) {
+            input.addEventListener('input', (e) => {
+              let searchText = this.trimStr(input.value)
+              this.fetchTxtFromDB(searchText, searchData)
             });
-            var searchResultList = '<ul class=\"search-result-list\">';
-            resultItems.forEach(function (result) {
-              searchResultList += result.item;
+          },
+          fetchTxtFromDB(searchText, DB) {
+            let resultArr = []
+
+            if (searchText) {
+              let searchTextArr = searchText.split(/[\s\-]+/); // 非首尾空格分割词条
+              searchTextArr = searchTextArr.filter((item) => {
+                return !this.excludes.includes(item);
+              })
+
+              if (searchTextArr.length > 1) {
+                searchTextArr.push(searchText); // 保留原始词条做完全匹配
+              }
+
+              resultArr = DB.filter((item) => {
+                let articleTitle = this.trimStr(item.title);
+                let titleHitArr = []
+                item.tmpTitleArr = []
+                item._title = ''
+
+
+                let articleContent = this.trimStr(item.content);
+                let contentHitArr = []
+                item.tmpContentArr = []
+                item.indexArr = []  // 词条在内容中第一次出现的位置
+                item._content = '' // 存储已经高亮关键字的原文
+                item._contentSliceArr = [] // 存储截取后的原文碎片
+
+                searchTextArr.map((one, index) => { // 求出searchTextArr有多少个命中的词条
+                  if (this.searchTitle) {
+                    let b = articleTitle.indexOf(one) > -1;
+                    b && titleHitArr.push(one)
+                  }
+
+                  if (this.searchContent) {
+                    let b2 = articleContent.indexOf(one) > -1
+                    b2 && contentHitArr.push(one)
+                  }
+                })
+
+                if (this.searchTitle && titleHitArr.length) {
+                  titleHitArr.map((one, index) => {
+                    let keyWordHtml = this.keyWordTpl().replace(/{{searchText}}/, one),
+                      titleArrWithoutKeyWord = (!index ? articleTitle : item.tmpTitleArr[index - 1]).split(one), // 用数组切割的方式把所有文本内包含的关键词替换出来, 下一次的分割依赖上一次分割结果
+                      highlightTxt = titleArrWithoutKeyWord.join(keyWordHtml);
+
+                    item.tmpTitleArr.push(highlightTxt); // 记录前一次的结果,用于下一次计算
+                    item._title = highlightTxt; // 最后一次为最终结果
+                  })
+
+                  delete item.tmpTitleArr
+                }
+
+                if (this.searchContent && contentHitArr.length) {
+                  contentHitArr.map((one, index) => {
+                    if (this.roughFetch) { // 先高亮后截取(可能造成高亮标签切割问题)
+                      let keyWordHtml = this.keyWordTpl().replace(/{{searchText}}/, one),
+                        contentArrWithoutKeyWord = (!index ? articleContent : item.tmpContentArr[index - 1]).split(one),
+                        highlightTxt = contentArrWithoutKeyWord.join(keyWordHtml);
+
+                      item.tmpContentArr.push(highlightTxt);
+                      item._content = highlightTxt;
+                    } else {
+                      item.indexArr.push({
+                        start: articleContent.indexOf(one), // 记录词条第一次出现的位置，和词条的长度
+                        length: one.length,
+                        str: one,
+                      })
+                    }
+                  })
+
+                  item.indexArr.map((one, index) => { // 有可能把<b>标签给切割了,造成样式异常, 需要另外处理
+                    let keyWordEndPosition = one.start + one.length // 词条的结束位置,用于计算截取长度
+                    let content = this.roughFetch ? item._content : item.content;
+                    let contentLen = content.length;
+
+                    if (one.start > this.contentDecoration) {
+                      let highLightEndPosition = keyWordEndPosition + this.contentDecoration
+                      highLightEndPosition = highLightEndPosition > contentLen ? contentLen : highLightEndPosition
+                      item._contentSliceArr.push('...'+content.slice(one.start - this.contentDecoration, highLightEndPosition) + '...')
+                    } else {
+                      let highLightEndPosition = keyWordEndPosition + this.contentDecoration * 2
+                      highLightEndPosition = highLightEndPosition > contentLen ? contentLen : highLightEndPosition
+                      item._contentSliceArr.push('...'+content.slice(0, highLightEndPosition) + '...')
+                    }
+                  })
+
+                  if (!this.roughFetch) {
+                    contentHitArr.map((one, index) => {
+                      let keyWordHtml = this.keyWordTpl().replace(/{{searchText}}/, one),
+                        contentArrWithoutKeyWord = (!index ? item._contentSliceArr.join('<i style="display:block;padding-top:10px"></i>') : item.tmpContentArr[index - 1]).split(one),
+                        highlightTxt = contentArrWithoutKeyWord.join(keyWordHtml);
+
+                      item.tmpContentArr.push(highlightTxt);
+                      item._content = highlightTxt
+                    })
+                  }
+
+                  delete item.tmpContentArr
+                  delete item._contentSliceArr
+                  delete item.indexArr
+                }
+
+                return (this.searchTitle && titleHitArr.length) || (this.searchContent && contentHitArr.length)
+              })
+            }
+
+            this.resultArr = resultArr;
+            this.render(JresList, Jcount, resultArr)
+          },
+          render(ele, countEle, resultArr) {
+            let htmlArr = resultArr.map((item) => {
+              return this.itemTpl()
+                .replace(/{{url}}/g, item.url)
+                .replace(/{{title}}/g, item._title || item.title)
+                .replace(/{{content}}/g, item._content)
             })
-            searchResultList += "</ul>";
-            resultContent.innerHTML = searchResultList;
+
+            ele.innerHTML = htmlArr.join('')
+            countEle.innerHTML = htmlArr.length
+          },
+          itemTpl() {
+            return `
+            <li class="item">
+              <a target="_blank" href="{{url}}">
+              <div class="search-result-title">{{title}}</div>
+              <p class="search-result search-result-link">{{content}}</p>
+              </a>
+            </li>
+          `;
+          },
+          keyWordTpl() {
+            return `<b class="search-keyword">{{searchText}}</b>`
           }
         }
 
-        input.addEventListener('input', inputEventFunction);
-        input.addEventListener('keydown', (e)=>{
-          if (e.keyCode=='13') {
-            inputEventFunction()
-          }
-        });
-      }
-      searchFunc('Jinput', 'JresList')
+      searchMod.init(Jinput)
     </script>
   </div>
 </article>
