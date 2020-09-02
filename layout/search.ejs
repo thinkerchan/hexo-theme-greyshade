@@ -158,7 +158,7 @@
               return this.itemTpl()
                 .replace(/{{url}}/g, item.url)
                 .replace(/{{title}}/g, item._title || item.title)
-                .replace(/{{content}}/g, item._content)
+                .replace(/{{content}}/g, item._content|| (item.content.slice(0,this.contentDecoration*3) +'...'))
             })
 
             ele.innerHTML = htmlArr.join('')
