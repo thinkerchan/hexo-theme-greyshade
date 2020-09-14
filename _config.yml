@@ -23,21 +23,21 @@ social:
   rss: true
 
 twitter:
-  username: thinkerchan
+  username:
 
 github:
-  username: thinkerchan
+  username:
 
 weibo:
   username:
 
 yuque:
-  username: testdog
+  username:
 
 # https://www.leancloud.cn/
 valine:
-  appId: XPJzs0FfufkFfuBjbJraqhbo-gzGzoHsz
-  appKey: QoS0zL4Y2xTDviitGOPkvCGv
+  appId:
+  appKey:
 
 # https://web.umeng.com/
 umeng: 1276809529
