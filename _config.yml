@@ -5,8 +5,8 @@ menu:
   page:
     归档: archives
     专题: categories
-    友链: friendlinks
-    关于: life
+    # 友链: friendlinks
+    # 关于: life
     搜索: search
 
 sidePic: https://tva1.sinaimg.cn/large/007S8ZIlgy1ggdmi6yapmj30dw0zk0wm.jpg
