@@ -23,7 +23,7 @@ social:
   github: true
   weibo: false
   yuque: true
-  rss: true
+  rss: false
 
 twitter:
   username: thinkerchan
