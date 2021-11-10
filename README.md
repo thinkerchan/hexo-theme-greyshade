@@ -1,8 +1,10 @@
 # hexo-theme-greyshade
-## 前言
-greyshade这个主题最早是在[屈光宇大神](https://imququ.com/)的博客看到的，最初是基于Octpress开发的一套主题，当然在其他博客系统中得到了迁移, 也包括了HEXO
+
+greyshade这个主题最早是在[屈光宇](https://imququ.com/)的博客看到的，最初是基于Octpress开发的一套主题，当然在其他博客系统中得到了迁移, 也包括了HEXO
 
 不过原作者对hexo-theme-greyshade的修改都是六七年前的事情了，基于他的基础，我微重构了下。虽然从极致程度上自然没有屈神优化得好。不过由于本人强迫症，把比较多不需要的东西都删了。样式上也接近屈神用的样式，速度上还是快了挺多的，有兴趣的可以安装。也可以看看运行的[效果](https://thinkerchan.com/)
+
+注意: 效果展示的是dev分支, 最新的优化会在dev分支里面展示, 如果我没把feature并入到master, 请各位自便
 
 ## 使用
 在你的hexo项目themes文件夹中执行：
@@ -148,6 +150,7 @@ Hexo-theme-greyshade:
 * CNZZ统计 ✔️
 * 专题文章分类(cate) ✔️  // 需要hexo new page catagories， 设置layout: cate
 * 新增页面参数 hideDate ✔️ // 隐藏发表日期
+* 文章过期提示  ✔️ (20211110)
 
 
 ## 其他
