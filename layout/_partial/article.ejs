@@ -27,8 +27,8 @@
   <% } %>
   <h1 class="title" itemprop="name"><%= item.title %></h1>
 
-  <% if (!item.hideDate) { %>
-  <p class="expired-tips">提醒：本文最后更新于 <%= moment().diff(moment(item.date), 'days')%> 天前，文章内容可能因 技术时效性 或 重新修改，请谨慎使用。</p>
+  <% if (!item.hideDate && !item.hideTips) { %>
+  <p class="expired-tips">提醒：本文发布于 <%= moment().diff(moment(item.date), 'days')%> 天前，文章内容可能 因技术时效性过期 或 被重新修改，请谨慎参考。</p>
   <% } %>
 
   <div class="entry-content" itemprop="articleBody">
