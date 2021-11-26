@@ -9,7 +9,7 @@ greyshade这个主题最早是在[屈光宇](https://imququ.com/)的博客看到
 ## 使用
 在你的hexo项目themes文件夹中执行：
 ```bash
- git clone https://github.com/thinkerchan/hexo-theme-greyshade.git //下载好之后将文件夹名字改成greyshade
+ git clone https://github.com/thinkerchan/hexo-theme-greyshade.git greyshade 
 ```
 
 然后对hexo的_config.yaml：
