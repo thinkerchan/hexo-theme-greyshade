@@ -48,7 +48,7 @@
         <div id="content" class="inner">
           <%- body  %>
         </div>
-        <% let useCmt = (typeof page.comments == 'boolean' && !page.comments) ? false :true %>
+        <% let useCmt = !(typeof page.comments == 'boolean' && !page.comments) %>
         <% if (!page.__index && theme.valine.appId && theme.valine.appKey && useCmt ) { %>
           <div class="post-comments" id="Jcmt">
             <h1 class="post-comments-title">访客评论</h1>
@@ -111,11 +111,13 @@
           pageSize: '10',
           placeholder: 'Valine+Leancloud提供评论'
         })
-      }
+      },
+      lcSDK:'https://cdn.jsdelivr.net/npm/leancloud-storage@4.13.2/dist/av.min.js',
+      valineSDK:'https://unpkg.com/valine@1.5.1/dist/Valine.min.js',
     }
 
-    mod.load('lib-av', 'https://cdn.jsdelivr.net/npm/leancloud-storage@3.0.1/dist/av-min.js', () => {
-      mod.load('lib-cmt', 'https://unpkg.com/valine@1.4.14/dist/Valine.min.js',()=>{
+    mod.load('lib-av', mod.lcSDK, () => {
+      mod.load('lib-cmt',mod.valineSDK ,()=>{
         let t = setTimeout(() => {
           mod.genCmt()
           clearTimeout(t)
