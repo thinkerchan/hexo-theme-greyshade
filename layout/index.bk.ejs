@@ -1,0 +1,15 @@
+<div class="article-list-wrap">
+  <%# pages.posts是首页显示的文章条数 %>
+  <% page.posts.each(function(item){ %>
+  <%- partial('_partial/article', {item: item, index: true})%>
+  <% }); %>
+</div>
+
+<nav id="pagenavi">
+  <% if(page.prev){ %>
+  <a href="<%- config.root %><%- page.prev_link %>" class="prev">上一页</a>
+  <% } %>
+  <% if(page.next){ %>
+  <a href="<%- config.root %><%- page.next_link %>" class="next">下一页</a>
+  <% } %>
+</nav>

@@ -22,14 +22,11 @@
           </nav>
           <nav id="sub-nav">
             <div class="social">
-              <% if(theme.social.twitter) { %>
-              <a class="twitter" href="https://twitter.com/<%- theme.twitter.username %>" title="Twitter">Twitter</a>
-              <% } %>
-              <% if(theme.social.weibo) { %>
-              <a class="weibo" href="https://weibo.com/<%- theme.weibo.username %>" title="微博">微博</a>
-              <% } %>
               <% if(theme.social.github) { %>
               <a class="github" href="https://github.com/<%- theme.github.username %>" title="Github">Github</a>
+              <% } %>
+              <% if(theme.social.juejin) { %>
+                <a class="juejin" href="<%- theme.social.juejin %>" title="掘金">掘金</a>
               <% } %>
               <% if(theme.social.yuque) { %>
               <a class="yuque" href="https://yuque.com/<%- theme.yuque.username %>" title="语雀">语雀</a>
@@ -107,13 +104,14 @@
           appKey: '<%= theme.valine.appKey %>',
           notify: true,
           verify: false,
-          avatar: 'mm',
+          avatar: 'monsterid',
+          avatar_cdn: 'https://cravatar.cn/avatar/',
           pageSize: '10',
           placeholder: 'Valine+Leancloud提供评论'
         })
       },
       lcSDK:'https://cdn.jsdelivr.net/npm/leancloud-storage@4.13.2/dist/av.min.js',
-      valineSDK:'https://unpkg.com/valine@1.5.1/dist/Valine.min.js',
+      valineSDK:'https://unpkg.com/valine@1.5.2/dist/Valine.min.js',
     }
 
     mod.load('lib-av', mod.lcSDK, () => {
