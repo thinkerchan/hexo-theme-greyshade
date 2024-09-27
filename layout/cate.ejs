@@ -1,33 +1,16 @@
 
 <%
-  let listArr = site.categories.data
+  let listArr = site.categories.data.reduce((acc, curr) => {
+    acc[curr._id] = { ...curr, list: [] };
+    return acc;
+  }, {});
 
-  for( let i in listArr ) {
-    listArr[i].list = []
-  }
+  let noCate = '默认分类';
+  listArr[noCate] = { _id: 'defaultCate', name: noCate, list: [] };
 
-  let noCate = '默认分类'
-  listArr[noCate] = {
-    _id:'defaultCate',
-    name:noCate,
-    list:[]
-  }
-
-
-  let posts = [];
-  site.posts.each((item)=>{
-    if (item.categories.data.length) {
-      let id = item.categories.data[0]._id
-      listArr[id] && listArr[id].list.push({
-        title: item.title,
-        link: item.path
-      })
-    }else{
-      listArr[noCate] && listArr[noCate].list.push({
-        title: item.title,
-        link: item.path
-      })
-    }
+  site.posts.each((item) => {
+    let id = item.categories.data.length ? item.categories.data[0]._id : noCate;
+    listArr[id].list.push({ title: item.title, link: item.path });
   });
 %>
 
