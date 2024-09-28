@@ -15,7 +15,7 @@
 
   let posts = [];
   site.posts.each((item)=>{
-    if (item.categories.data.length) {
+    if (item?.categories?.data?.length) {
       let id = item.categories.data[0]._id
       listArr[id] && listArr[id].list.push({
         title: item.title,
