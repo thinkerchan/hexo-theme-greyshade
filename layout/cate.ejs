@@ -1,41 +1,27 @@
-<%
-  let listArr = site.categories.data
-
-  for( let i in listArr ) {
-    listArr[i].list = []
-  }
-
-  let noCate = '默认分类'
-  listArr[noCate] = {
-    _id:'defaultCate',
-    name:noCate,
-    list:[]
-  }
-
-
-  let posts = [];
-  site.posts.each((item)=>{
-    if (item?.categories?.data?.length) {
-      let id = item.categories.data[0]._id
-      listArr[id] && listArr[id].list.push({
-        title: item.title,
-        link: item.path
-      })
-    }else{
-      listArr[noCate] && listArr[noCate].list.push({
-        title: item.title,
-        link: item.path
-      })
-    }
-  });
-%>
-
+<!-- 归档页 s -->
 <article>
   <% let tocHTML = '' %>
-  <h1 class="title"><%- page.title %></h1>
+  <h1 class="title">已发表文章 <%=site.posts.length%> 篇</h1>
   <div class="entry-content">
-    <% for( let i in listArr ) {
-      tocHTML+= (listArr[i].list.length ? `<h3 id="${listArr[i]._id}">${(listArr[i].name).toLowerCase()}</h3>` :'')
+    <%
+      let posts = [], _yearArr = [] ,yearArr;
+      site.posts.each(function(item){
+        posts.push(item)
+        _yearArr.push(moment(item.date).format('YYYY'))
+      });
+
+      posts = posts.sort((prev,next)=>{
+        return next.date - prev.date
+      })
+
+      yearArr = [...new Set(_yearArr)]
+      yearArr = yearArr.sort((prev,next)=>{
+        return next - prev
+      })
+    %>
+
+    <% for( let i = 0; i < yearArr.length; i++ ) {
+      tocHTML+= `<h3 id="m${yearArr[i]}">${yearArr[i]}</h3>`
     } %>
 
     <% if (tocHTML.length) { %>
@@ -45,17 +31,19 @@
       </div>
     <% } %>
 
-    <% for( let i in listArr ) { %>
-      <% if (listArr[i].list.length) { %>
-        <h3 id="<%=listArr[i]._id%>">「 <%= (listArr[i].name).toLowerCase()%> 」</h3>
-        <ul>
-          <% for( let index = 0; index < listArr[i].list.length; index++ ) { %>
+
+    <% for( let i = 0; i < yearArr.length; i++ ) { %>
+      <h3 id="m<%=yearArr[i]%>"><%=yearArr[i]%></h3>
+      <ul>
+        <% for( let index = 0; index < posts.length; index++ ) { %>
+          <% if (moment(posts[index].date).format('YYYY') == yearArr[i]) { %>
             <li>
-              <a href="<%- config.root %><%- listArr[i].list[index].link %>"><%= listArr[i].list[index].title %> </a>
+              <a href="<%- config.root %><%- posts[index].path %>"><%= posts[index].title %></a>
+              (<%= moment(posts[index].date).format('MM-DD') %>)
             </li>
-            <% } %>
-        </ul>
-      <% } %>
+          <% } %>
+        <% } %>
+      </ul>
     <% } %>
   </div>
 </article>
