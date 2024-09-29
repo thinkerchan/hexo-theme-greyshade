@@ -1,4 +1,3 @@
-
 <%
   let listArr = site.categories.data.map(item=>{
     return {
@@ -11,28 +10,29 @@
     listArr[i].list = []
   }
 
-  let noCate = '默认分类'
-  listArr.push({
+  let defaultCateArr = {
     _id:'defaultCate',
-    name:noCate,
+    name:'默认分类',
     list:[]
-  })
+  }
 
-  console.log(`listArr`, listArr);
-
-  let posts = listArr.map(item=>{
+  listArr.map((item,index)=>{
+    let cateId = item._id;
     site.posts.map(itm=>{
       let artInfo = itm.categories.data[0]
       if (artInfo) {
-        if (item._id == artInfo._id) {
+        if(artInfo._id === cateId){
           item.list.push(itm)
+        }
+      }else{
+        if(index === 0){ // 只取一次不带分类的文章
+          defaultCateArr.list.push(itm)
         }
       }
     })
   })
 
-  console.log(`posts`, posts);
-
+  listArr.unshift(defaultCateArr)
 %>
 
 <article>
@@ -56,7 +56,7 @@
         <ul>
           <% for( let index = 0; index < listArr[i].list.length; index++ ) { %>
             <li>
-              <a href="<%- config.root %><%- listArr[i].list[index].link %>"><%= listArr[i].list[index].title %> </a>
+              <a href="<%- config.root %><%- listArr[i].list[index].path %>"><%= listArr[i].list[index].title %> </a>
             </li>
             <% } %>
         </ul>
