@@ -1,35 +1,38 @@
 
 <%
-  let listArr = site.categories.data
+  let listArr = site.categories.data.map(item=>{
+    return {
+      _id:item._id,
+      name:item.name
+    }
+  })
 
   for( let i in listArr ) {
     listArr[i].list = []
   }
 
   let noCate = '默认分类'
-  listArr[noCate] = {
+  listArr.push({
     _id:'defaultCate',
     name:noCate,
     list:[]
-  }
+  })
 
+  console.log(`listArr`, listArr);
 
-  let posts = [];
-  site.posts.each((item)=>{
-    let artInfo = item.categories.data[0]
-    if (artInfo) {
-      let id = artInfo._id
-      listArr[id] && listArr[id].list.push({
-        title: item.title,
-        link: item.path
-      })
-    }else{
-      listArr[noCate] && listArr[noCate].list.push({
-        title: item.title,
-        link: item.path
-      })
-    }
-  });
+  let posts = listArr.map(item=>{
+    site.posts.map(itm=>{
+      let artInfo = itm.categories.data[0]
+      if (artInfo) {
+        if (item._id == artInfo._id) {
+          item.list.push(itm)
+        }
+      }
+    })
+  })
+
+  console.log(`posts`, posts);
+
 %>
 
 <article>
