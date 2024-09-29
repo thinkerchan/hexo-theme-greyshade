@@ -23,13 +23,13 @@
           <nav id="sub-nav">
             <div class="social">
               <% if(theme.social.github) { %>
-              <a class="github" href="https://github.com/<%- theme.github.username %>" title="Github">Github</a>
+              <a class="github" href="https://github.com/<%- theme.social.github %>" title="Github">Github</a>
               <% } %>
               <% if(theme.social.juejin) { %>
-                <a class="juejin" href="<%- theme.social.juejin %>" title="掘金">掘金</a>
+                <a class="juejin" href="https://juejin.cn/user/<%- theme.social.juejin %>" title="掘金">掘金</a>
               <% } %>
               <% if(theme.social.yuque) { %>
-              <a class="yuque" href="https://yuque.com/<%- theme.yuque.username %>" title="语雀">语雀</a>
+              <a class="yuque" href="https://yuque.com/<%- theme.social.yuque %>" title="语雀">语雀</a>
               <% } %>
 
               <% if(theme.social.rss) { %>
@@ -125,10 +125,8 @@
     })
   </script>
   <% } %>
+
   <script async defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-  <% if (theme.umeng) { %>
-  <script async defer src="https://s5.cnzz.com/z_stat.php?id=<%= theme.umeng %>&web_id=<%= theme.umeng %>"></script>
-  <% } %>
   <script async defer src="https://tongji.linkroutes.com/script.js" data-website-id="f41ddf8b-871a-4969-9afb-ec254a58786b"></script>
 </body>
 </html>
