@@ -1,12 +1,9 @@
 menu:
-  Home: /
-  Archives: archives
-  cate: cate
   page:
     首页: .
-    专题: categories
-    关于: life
-    搜索: search
+    专题: categories/
+    关于: life/
+    搜索: search/
 
 sidePic: https://p.ipic.vip/b2t3my.jpg
 avatar: https://p.ipic.vip/67o2jq.jpg
