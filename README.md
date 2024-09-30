@@ -4,12 +4,10 @@ greyshade这个主题最早是在[屈光宇](https://imququ.com/)的博客看到
 
 不过原作者对hexo-theme-greyshade的修改都是六七年前的事情了，基于他的基础，我微重构了下。虽然从极致程度上自然没有屈神优化得好。不过由于本人强迫症，把比较多不需要的东西都删了。样式上也接近屈神用的样式，速度上还是快了挺多的，有兴趣的可以安装。也可以看看运行的[效果](https://thinkerchan.com/)
 
-注意: 效果展示的是dev分支, 最新的优化会在dev分支里面展示, 如果我没把feature并入到master, 请各位自便
-
 ## 使用
 在你的hexo项目themes文件夹中执行：
 ```bash
- git clone https://github.com/thinkerchan/hexo-theme-greyshade.git greyshade 
+ git clone https://github.com/thinkerchan/hexo-theme-greyshade.git greyshade
 ```
 
 然后对hexo的_config.yaml：
@@ -18,50 +16,33 @@ theme: greyshade
 ```
 
 主题文件夹本身也有一个_config.yaml，按需配置即可:
-```yaml
-    menu:
-    Home: /
-    Archives: archives
-    cate: cate
-    page:   // 只有 archives是自动生成的,其他需要手动配置
-        归档: archives
-        专题: categories
-        友链: friendlinks
-        关于: life
-        搜索: search
+```yml
+menu:
+  page:
+    首页: .
+    专题: categories/
+    关于: life/
+    搜索: search/
 
-    sidePic: https://tva1.sinaimg.cn/large/007S8ZIlgy1ggdmi6yapmj30dw0zk0wm.jpg // 主题图
-    avatar: https://tva1.sinaimg.cn/large/007S8ZIlgy1ggdmr1k3k0j305k05k74j.jpg // 头像
+sidePic: https://p.ipic.vip/b2t3my.jpg
+avatar: https://p.ipic.vip/67o2jq.jpg
 
-    excerpt_link: 继续阅读
-    excerpt: 200 // 提取字数
+excerpt_link: 继续阅读
+excerpt: 200
 
-    social:
-        twitter: true
-        github: true
-        weibo: false
-        yuque: true
-        rss: true
+social:
+  github: thinkerchan
+  yuque: thinkerchan
+  juejin: 201965868418951
+  rss: false
 
-    twitter:
-        username:  用户名
 
-    github:
-        username:  用户名
+# https://www.leancloud.cn/
+# https://valine.js.org/
+valine:
+  appId: XPJzs0FfufkFfuBjbJraqhbo-gzGzoHsz
+  appKey: QoS0zL4Y2xTDviitGOPkvCGv
 
-    weibo:
-        username: 用户名
-
-    yuque:
-        username:  用户名
-
-    # https://www.leancloud.cn/
-    valine: 如果需要评论,则需要取leancloud注册并获取以下key
-        appId:
-        appKey:
-
-    # https://web.umeng.com/
-    umeng: 友盟项目id
 
 ```
 ## 创建几个关键页面
@@ -134,7 +115,7 @@ Hexo-theme-greyshade:
 * 去除所有不必要的js ✔️
 * 去除所有不必要的社交逻辑 ✔️
 * 缓存js到localstorage ✔️
-* 添加搜索 ✔️(站内搜索) // 需要hexo new page search 设置layout: search
+* 添加搜索 ✔️(站内搜索)
 * 添加rss ✔️
 * 文章页内的前进后退按钮 ✔️
 * 图片base64
@@ -147,9 +128,8 @@ Hexo-theme-greyshade:
     * 底部导航条样式 ✔️
     * 顶部页面入口 ✔️
 * 简单统计 ✔️
-* CNZZ统计 ✔️
-* 专题文章分类(cate) ✔️  // 需要hexo new page catagories， 设置layout: cate
-* 新增页面参数 hideDate ✔️ // 隐藏发表日期
+* 专题文章分类(cate) ✔️
+* 新增页面参数 hideDate ✔️
 * 文章过期提示  ✔️ (20211110)
 
 

@@ -1,43 +1,24 @@
 menu:
-  Home: /
-  Archives: archives
-  cate: cate
   page:
-    归档: archives
-    专题: categories
-    # 友链: friendlinks
-    # 关于: life
-    搜索: search
+    首页: .
+    专题: categories/
+    关于: life/
+    搜索: search/
 
-sidePic: https://tva1.sinaimg.cn/large/007S8ZIlgy1ggdmi6yapmj30dw0zk0wm.jpg
-avatar: https://tva1.sinaimg.cn/large/007S8ZIlgy1ggdmr1k3k0j305k05k74j.jpg
+sidePic: https://p.ipic.vip/b2t3my.jpg
+avatar: https://p.ipic.vip/67o2jq.jpg
 
 excerpt_link: 继续阅读
 excerpt: 200
 
 social:
-  twitter: true
-  github: true
-  weibo: false
-  yuque: true
-  rss: true
+  github: thinkerchan
+  yuque: thinkerchan
+  juejin: 201965868418951
+  rss: false
 
-twitter:
-  username:
-
-github:
-  username:
-
-weibo:
-  username:
-
-yuque:
-  username:
 
 # https://www.leancloud.cn/
 valine:
-  appId:
-  appKey:
-
-# https://web.umeng.com/
-umeng: 1276809529
+  appId: XPJzs0FfufkFfuBjbJraqhbo-gzGzoHsz
+  appKey: QoS0zL4Y2xTDviitGOPkvCGv

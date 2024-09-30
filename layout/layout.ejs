@@ -5,7 +5,7 @@
       <div class="intrude-less">
         <header id="header" class="inner">
           <a href="<%- config.root %>">
-            <div class="profilepic"><img src='<%= theme.avatar %>'></div>
+            <div class="profilepic"><img class="avatar" src='<%= theme.avatar %>'></div>
           </a>
           <div class="author-name"><a href="<%- config.root %>"><%= config.author %></a></div>
           <% if(config.description) { %><p class="aboutme"><%= config.description %></p><% } %>
@@ -22,17 +22,14 @@
           </nav>
           <nav id="sub-nav">
             <div class="social">
-              <% if(theme.social.twitter) { %>
-              <a class="twitter" href="https://twitter.com/<%- theme.twitter.username %>" title="Twitter">Twitter</a>
-              <% } %>
-              <% if(theme.social.weibo) { %>
-              <a class="weibo" href="https://weibo.com/<%- theme.weibo.username %>" title="微博">微博</a>
-              <% } %>
               <% if(theme.social.github) { %>
-              <a class="github" href="https://github.com/<%- theme.github.username %>" title="Github">Github</a>
+              <a class="github" href="https://github.com/<%- theme.social.github %>" title="Github">Github</a>
+              <% } %>
+              <% if(theme.social.juejin) { %>
+                <a class="juejin" href="https://juejin.cn/user/<%- theme.social.juejin %>" title="掘金">掘金</a>
               <% } %>
               <% if(theme.social.yuque) { %>
-              <a class="yuque" href="https://yuque.com/<%- theme.yuque.username %>" title="语雀">语雀</a>
+              <a class="yuque" href="https://yuque.com/<%- theme.social.yuque %>" title="语雀">语雀</a>
               <% } %>
 
               <% if(theme.social.rss) { %>
@@ -48,7 +45,7 @@
         <div id="content" class="inner">
           <%- body  %>
         </div>
-        <% let useCmt = (typeof page.comments == 'boolean' && !page.comments) ? false :true %>
+        <% let useCmt = !(typeof page.comments == 'boolean' && !page.comments) %>
         <% if (!page.__index && theme.valine.appId && theme.valine.appKey && useCmt ) { %>
           <div class="post-comments" id="Jcmt">
             <h1 class="post-comments-title">访客评论</h1>
@@ -107,15 +104,18 @@
           appKey: '<%= theme.valine.appKey %>',
           notify: true,
           verify: false,
-          avatar: 'mm',
+          avatar: 'monsterid',
+          avatar_cdn: 'https://cravatar.cn/avatar/',
           pageSize: '10',
           placeholder: 'Valine+Leancloud提供评论'
         })
-      }
+      },
+      lcSDK:'https://cdn.jsdelivr.net/npm/leancloud-storage@4.13.2/dist/av.min.js',
+      valineSDK:'https://unpkg.com/valine@1.5.2/dist/Valine.min.js',
     }
 
-    mod.load('lib-av', 'https://cdn.jsdelivr.net/npm/leancloud-storage@3.0.1/dist/av-min.js', () => {
-      mod.load('lib-cmt', 'https://unpkg.com/valine@1.4.14/dist/Valine.min.js',()=>{
+    mod.load('lib-av', mod.lcSDK, () => {
+      mod.load('lib-cmt',mod.valineSDK ,()=>{
         let t = setTimeout(() => {
           mod.genCmt()
           clearTimeout(t)
@@ -125,9 +125,8 @@
     })
   </script>
   <% } %>
+
   <script async defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-  <% if (theme.umeng) { %>
-  <script async defer src="https://s5.cnzz.com/z_stat.php?id=<%= theme.umeng %>&web_id=<%= theme.umeng %>"></script>
-  <% } %>
+  <script async defer src="https://tongji.linkroutes.com/script.js" data-website-id="f41ddf8b-871a-4969-9afb-ec254a58786b"></script>
 </body>
 </html>

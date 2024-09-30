@@ -1,5 +1,6 @@
 <article class="post">
 <% if(index) { %>
+  <!-- 网站首页结构 -->
   <h1 class="title" itemprop="name">
     <a href="<%- config.root %><%- item.path %>" itemprop="url"><%= item.title %></a>
   </h1>
@@ -18,12 +19,18 @@
   </div>
 
 <% } else { %>
+  <!-- 文章页结构 -->
   <% if (!item.hideDate) { %>
     <div class="meta">
       <%- partial('post/date', {type: "post"}) %>
     </div>
   <% } %>
   <h1 class="title" itemprop="name"><%= item.title %></h1>
+
+  <% if (!item.hideDate && !item.hideTips) { %>
+  <p class="expired-tips">提醒：本文发布于 <%= moment().diff(moment(item.date), 'days')%> 天前，文章内容可能 因技术时效性过期 或 被重新修改，请谨慎参考。</p>
+  <% } %>
+
   <div class="entry-content" itemprop="articleBody">
     <% if (!index && toc(item.content)) { %>
     <div class="post-toc">
