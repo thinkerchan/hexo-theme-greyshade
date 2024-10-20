@@ -334,6 +334,12 @@ body {
     margin: 0 0;
   }
 
+  @media screen and (max-width: 1024px) {
+    .post-toc {
+      display: none;
+    }
+  }
+
   @media screen and (max-width: 640px) {
     .container {
       .left-col {
@@ -396,6 +402,7 @@ body {
   position: sticky;
   top: 75px;
   right:0;
+  z-index 100;
 
 
   .toc-title {
