@@ -30,8 +30,11 @@
         }
       }
     })
+    // 按时间排序,新到旧
+    item.list.sort((a,b) => b.date - a.date)
   })
 
+  defaultCateArr.list.sort((a,b) => b.date - a.date)
   listArr.unshift(defaultCateArr)
 %>
 
