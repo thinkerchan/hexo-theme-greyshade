@@ -391,32 +391,33 @@ body {
 }
 
 .post-toc {
-  float: right;
-  min-width: 120px;
-  max-width: 260px;
-  padding: 8px;
-  margin: 0 0 15px 20px;
-  border: 1px solid #e2e2e2;
-  font-size: 14px;
-  background-color: #fff;
-  position: sticky;
-  top: 75px;
-  right:0;
-  z-index 100;
+  margin: 0 0 0 20px;
+  flex-shrink: 0;
 
+  .post-toc-content{
+    background-color: #fff;
+    font-size: 14px;
+    min-width: 120px;
+    max-width: 260px;
+    border: 1px solid #e2e2e2;
+    padding: 8px;
+    position: sticky;
+    top: 75px;
+    right:0;
+    z-index 100;
+    .toc-title {
+      font-weight: bold;
+      border-bottom: 1px solid #e2e2e2;
+    }
 
-  .toc-title {
-    font-weight: bold;
-    border-bottom: 1px solid #e2e2e2;
-  }
+    >ol, >ul {
+      margin-left: 0px !important;
+    }
 
-  >ol, >ul {
-    margin-left: 0px !important;
-  }
-
-  ol, ul {
-    list-style: none;
-    margin-top: 5px !important;
+    ol, ul {
+      list-style: none;
+      margin-top: 5px !important;
+    }
   }
 }
 .post-comments{

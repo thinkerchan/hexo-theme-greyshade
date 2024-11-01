@@ -41,29 +41,33 @@
 <article>
   <% let tocHTML = '' %>
   <h1 class="title"><%- page.title %></h1>
-  <div class="entry-content">
+  <div class="entry-content flex">
     <% for( let i in listArr ) {
       tocHTML+= (listArr[i].list.length ? `<h3 id="${listArr[i]._id}">${(listArr[i].name).toLowerCase()}</h3>` :'')
     } %>
 
+    <div class="flex-1">
+      <% for( let i in listArr ) { %>
+        <% if (listArr[i].list.length) { %>
+          <h3 id="<%=listArr[i]._id%>">「 <%= (listArr[i].name).toLowerCase()%> 」</h3>
+          <ul>
+            <% for( let index = 0; index < listArr[i].list.length; index++ ) { %>
+              <li>
+                <a href="<%- config.root %><%- listArr[i].list[index].path %>"><%= listArr[i].list[index].title %> </a>
+              </li>
+              <% } %>
+          </ul>
+        <% } %>
+      <% } %>
+    </div>
+
     <% if (tocHTML.length) { %>
       <div class="post-toc">
-        <div class="toc-title">TOC</div>
-        <%- toc(tocHTML) %>
+        <div class="post-toc-content">
+          <div class="toc-title">TOC</div>
+          <%- toc(tocHTML) %>
+        </div>
       </div>
-    <% } %>
-
-    <% for( let i in listArr ) { %>
-      <% if (listArr[i].list.length) { %>
-        <h3 id="<%=listArr[i]._id%>">「 <%= (listArr[i].name).toLowerCase()%> 」</h3>
-        <ul>
-          <% for( let index = 0; index < listArr[i].list.length; index++ ) { %>
-            <li>
-              <a href="<%- config.root %><%- listArr[i].list[index].path %>"><%= listArr[i].list[index].title %> </a>
-            </li>
-            <% } %>
-        </ul>
-      <% } %>
     <% } %>
   </div>
 </article>

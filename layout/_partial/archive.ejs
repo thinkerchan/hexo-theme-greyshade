@@ -2,7 +2,7 @@
 <article>
   <% let tocHTML = '' %>
   <h1 class="title">已发表文章 <%=site.posts.length%> 篇</h1>
-  <div class="entry-content">
+  <div class="entry-content flex">
     <%
       let posts = [], _yearArr = [] ,yearArr;
       site.posts.each(function(item){
@@ -24,15 +24,8 @@
       tocHTML+= `<h3 id="m${yearArr[i]}">${yearArr[i]}</h3>`
     } %>
 
-    <% if (tocHTML.length) { %>
-      <div class="post-toc">
-        <div class="toc-title">TOC</div>
-        <%- toc(tocHTML) %>
-      </div>
-    <% } %>
-
-
-    <% for( let i = 0; i < yearArr.length; i++ ) { %>
+    <div class="flex-1">
+      <% for( let i = 0; i < yearArr.length; i++ ) { %>
       <h3 id="m<%=yearArr[i]%>"><%=yearArr[i]%></h3>
       <ul>
         <% for( let index = 0; index < posts.length; index++ ) { %>
@@ -43,7 +36,17 @@
             </li>
           <% } %>
         <% } %>
-      </ul>
+        </ul>
+      <% } %>
+    </div>
+
+    <% if (tocHTML.length) { %>
+      <div class="post-toc">
+        <div class="post-toc-content">
+          <div class="toc-title">TOC</div>
+          <%- toc(tocHTML) %>
+        </div>
+      </div>
     <% } %>
   </div>
 </article>
