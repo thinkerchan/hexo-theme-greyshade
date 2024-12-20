@@ -124,6 +124,10 @@
         let ele = document.getElementById('JexpiredTips')
         let wrap = document.getElementById('JexpiredTipsWrap')
 
+        if (!ele || !wrap) {
+          return;
+        }
+
         let date = new Date(ele.getAttribute('data-date'))
         let now = new Date()
         let diff = Math.floor((now - date) / (1000 * 60 * 60 * 24))
