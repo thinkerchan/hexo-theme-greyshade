@@ -45,14 +45,22 @@
         <div id="content" class="inner">
           <%- body  %>
         </div>
-        <% let useCmt = !(typeof page.comments == 'boolean' && !page.comments) %>
-        <% if (!page.__index && theme.valine.appId && theme.valine.appKey && useCmt ) { %>
+        <%
+          let useCmt =
+            theme.leancloud.appId &&
+            theme.leancloud.appKey &&
+            theme.leancloud.sdk &&
+            theme.valine.sdk && !(typeof page.comments == 'boolean' && !page.comments);
+        %>
+
+        <% if (!page.__index && useCmt ) { %>
           <div class="post-comments" id="Jcmt">
             <h1 class="post-comments-title">访客评论</h1>
             <div id="Jcomment"></div>
           </div>
         <% } %>
       </div>
+
       <footer id="footer" class="inner">
         © <%= (new Date).getFullYear();  %> - <%- config.author %> -
         <span id="busuanzi_container_site_pv">PV <span id="busuanzi_value_site_pv"></span></span>
@@ -60,7 +68,7 @@
       </footer>
     </div>
   </div>
-  <% if (!page.__index && theme.valine.appId && theme.valine.appKey && useCmt ) { %>
+  <% if (!page.__index && useCmt ) { %>
   <script>
     let mod ={
       timePrefix:'t-',
@@ -100,20 +108,34 @@
       genCmt(){
         window.Valine && new Valine({
           el: '#Jcomment',
-          appId: '<%= theme.valine.appId %>',
-          appKey: '<%= theme.valine.appKey %>',
+          appId: '<%= theme.leancloud.appId %>',
+          appKey: '<%= theme.leancloud.appKey %>',
           notify: true,
           verify: false,
           avatar: 'monsterid',
           avatar_cdn: 'https://cravatar.cn/avatar/',
           pageSize: '10',
-          placeholder: 'Valine+Leancloud提供评论'
+          placeholder: '<%= theme.valine.placeholder %>'
         })
       },
-      lcSDK:'https://cdn.jsdelivr.net/npm/leancloud-storage@4.13.2/dist/av.min.js',
-      valineSDK:'https://unpkg.com/valine@1.5.2/dist/Valine.min.js',
+      lcSDK: '<%= theme.leancloud.sdk %>',
+      valineSDK: '<%= theme.valine.sdk %>',
+      expiredTipsTpl(){
+        let ele = document.getElementById('JexpiredTips')
+        let wrap = document.getElementById('JexpiredTipsWrap')
+
+        let date = new Date(ele.getAttribute('data-date'))
+        let now = new Date()
+        let diff = Math.floor((now - date) / (1000 * 60 * 60 * 24))
+        if(diff < 30){
+          wrap.style.display = 'none';
+        }else{
+          ele.innerHTML = diff;
+        }
+      }
     }
 
+    mod.expiredTipsTpl();
     mod.load('lib-av', mod.lcSDK, () => {
       mod.load('lib-cmt',mod.valineSDK ,()=>{
         let t = setTimeout(() => {

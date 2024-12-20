@@ -32,7 +32,10 @@
   <div class="entry-content flex" itemprop="articleBody">
     <div>
       <% if (!item.hideDate && !item.hideTips) { %>
-        <p class="expired-tips">提醒：本文发布于 <%= moment().diff(moment(item.date), 'days')%> 天前，文章内容可能 因技术时效性过期 或 被重新修改，请谨慎参考。</p>
+        <p class="expired-tips" id="JexpiredTipsWrap">提醒：本文发布于
+          <span id="JexpiredTips" data-date="<%= item.date %>"></span>
+          天前，内容可能因【技术时效性】过期 或【被重新修改】，请谨慎参考。
+        </p>
       <% } %>
 
       <%- item.content %>

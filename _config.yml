@@ -17,8 +17,14 @@ social:
   juejin: 201965868418951
   rss: false
 
-
+# 评论使用 LeanCloud + Valine
 # https://www.leancloud.cn/
-valine:
+leancloud:
   appId: XPJzs0FfufkFfuBjbJraqhbo-gzGzoHsz
   appKey: QoS0zL4Y2xTDviitGOPkvCGv
+  sdk: https://cdn.jsdelivr.net/npm/leancloud-storage@4.13.2/dist/av.min.js
+
+# https://valine.js.org/
+valine:
+  sdk: https://unpkg.com/valine@1.5.2/dist/Valine.min.js
+  placeholder: 我来说两句
