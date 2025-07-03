@@ -5,7 +5,7 @@ menu:
     关于: life/
     搜索: search/
 
-sidePic: https://p.ipic.vip/b2t3my.jpg
+sidePic: https://telegram-file.vercel.app/api/file/BQACAgUAAxkDAAIBKmhmJ6A-T-UOYgpw0hl73yxSdjkKAAKeFwACsuAxV9jxnwSfyxQ2NgQ.png
 avatar: https://telegram-file.vercel.app/api/file/AgACAgUAAxkDAAIBJGhBy90fHw2lGhvymfpc0l7Qz48VAAK6yDEbK74JVqVMX-1Hfy2QAQADAgADeQADNgQ.jpeg
 
 excerpt_link: 继续阅读
@@ -13,8 +13,9 @@ excerpt: 200
 
 social:
   github: thinkerchan
-  yuque: thinkerchan
+  # yuque: thinkerchan
   juejin: 201965868418951
+  twitter: thinkerchan
   rss: false
 
 # 评论使用 LeanCloud + Valine
