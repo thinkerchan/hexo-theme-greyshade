@@ -73,53 +73,16 @@
   <% if (!page.__index && useCmt ) { %>
   <script>
     let mod ={
-      timePrefix:'t-',
-      expire:1000*60*60,
-      load:function(libName,libUrl){
-        let aval = (new Date).getTime() - localStorage.getItem(this.timePrefix+libName) < this.expire;
-        let libStr = localStorage.getItem(libName)
-        if (aval && libStr) {
-          this.parseAndInsert(libStr)
-          this.genCmt()
-        }else{
-          this.ajax(libUrl,(str)=>{
-            localStorage.setItem(libName, str)
-            localStorage.setItem(this.timePrefix+libName, (new Date).getTime())
-            this.parseAndInsert(str)
-            this.genCmt()
-          })
-        }
-      },
-      parseAndInsert(rawStr) {
-        let script = document.createElement('script')
-        script.innerHTML = rawStr
-        document.body.appendChild(script)
-      },
-      ajax:function(url,cb){
-        let xhr = new XMLHttpRequest;
-        xhr.open('get', url, true)
-        xhr.send();
-        xhr.onreadystatechange = function () {
-          if (xhr.readyState == 4 && xhr.status == 200) {
-            cb && cb(xhr.responseText)
-          }else{
-            // console.log(xhr.readyState,xhr.status);
-          }
-        }
-      },
       genCmt(){
-        let t = setTimeout(() => {
-          window.Waline && Waline.init({
+        import('<%= theme.waline.cmtJs %>').then(({ init }) => {
+          init({
             el: '#Jcomment',
             serverURL: '<%= theme.waline.cmtURL %>',
             copyright: false,
             // lang:"zh-CN"
           });
-          clearTimeout(t)
-          t = null;
-        }, 100);
+        });
       },
-      cmtSdk: '<%= theme.waline.cmtJs %>',
       expiredTipsTpl(){
         let ele = document.getElementById('JexpiredTips')
         let wrap = document.getElementById('JexpiredTipsWrap')
@@ -140,7 +103,7 @@
     }
 
     mod.expiredTipsTpl();
-    mod.load('lib-cmt', mod.cmtSdk);
+    mod.genCmt();
   </script>
   <% } %>
 
