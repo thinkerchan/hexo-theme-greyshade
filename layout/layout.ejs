@@ -50,13 +50,12 @@
         </div>
         <%
           let useCmt =
-            theme.leancloud.appId &&
-            theme.leancloud.appKey &&
-            theme.leancloud.sdk &&
-            theme.valine.sdk && !(typeof page.comments == 'boolean' && !page.comments);
+            theme.waline.cmtURL &&
+            theme.waline.cmtJs && !(typeof page.comments == 'boolean' && !page.comments);
         %>
 
         <% if (!page.__index && useCmt ) { %>
+          <link rel="stylesheet" href="<%= theme.waline.cmtCss %>">
           <div class="post-comments" id="Jcmt">
             <h1 class="post-comments-title">访客评论</h1>
             <div id="Jcomment"></div>
@@ -76,18 +75,18 @@
     let mod ={
       timePrefix:'t-',
       expire:1000*60*60,
-      load:function(libName,libUrl,cb){
+      load:function(libName,libUrl){
         let aval = (new Date).getTime() - localStorage.getItem(this.timePrefix+libName) < this.expire;
         let libStr = localStorage.getItem(libName)
         if (aval && libStr) {
           this.parseAndInsert(libStr)
-          cb && cb(libStr);
+          this.genCmt()
         }else{
           this.ajax(libUrl,(str)=>{
             localStorage.setItem(libName, str)
             localStorage.setItem(this.timePrefix+libName, (new Date).getTime())
             this.parseAndInsert(str)
-            cb && cb(str);
+            this.genCmt()
           })
         }
       },
@@ -109,20 +108,18 @@
         }
       },
       genCmt(){
-        window.Valine && new Valine({
-          el: '#Jcomment',
-          appId: '<%= theme.leancloud.appId %>',
-          appKey: '<%= theme.leancloud.appKey %>',
-          notify: true,
-          verify: false,
-          avatar: 'monsterid',
-          avatar_cdn: 'https://cravatar.cn/avatar/',
-          pageSize: '10',
-          placeholder: '<%= theme.valine.placeholder %>'
-        })
+        let t = setTimeout(() => {
+          window.Waline && Waline.init({
+            el: '#Jcomment',
+            serverURL: '<%= theme.waline.cmtURL %>',
+            copyright: false,
+            // lang:"zh-CN"
+          });
+          clearTimeout(t)
+          t = null;
+        }, 100);
       },
-      lcSDK: '<%= theme.leancloud.sdk %>',
-      valineSDK: '<%= theme.valine.sdk %>',
+      cmtSdk: '<%= theme.waline.cmtJs %>',
       expiredTipsTpl(){
         let ele = document.getElementById('JexpiredTips')
         let wrap = document.getElementById('JexpiredTipsWrap')
@@ -143,15 +140,7 @@
     }
 
     mod.expiredTipsTpl();
-    mod.load('lib-av', mod.lcSDK, () => {
-      mod.load('lib-cmt',mod.valineSDK ,()=>{
-        let t = setTimeout(() => {
-          mod.genCmt()
-          clearTimeout(t)
-          t = null;
-        }, 100);
-      })
-    })
+    mod.load('lib-cmt', mod.cmtSdk);
   </script>
   <% } %>
 

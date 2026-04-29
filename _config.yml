@@ -18,14 +18,9 @@ social:
   twitter: thinkerchan
   rss: false
 
-# 评论使用 LeanCloud + Valine
-# https://www.leancloud.cn/
-leancloud:
-  appId: XPJzs0FfufkFfuBjbJraqhbo-gzGzoHsz
-  appKey: QoS0zL4Y2xTDviitGOPkvCGv
-  sdk: https://cdn.jsdelivr.net/npm/leancloud-storage@4.13.2/dist/av.min.js
-
-# https://valine.js.org/
-valine:
-  sdk: https://unpkg.com/valine@1.5.2/dist/Valine.min.js
-  placeholder: 我来说两句
+# 评论使用 Waline
+# https://waline.js.org/
+waline:
+  cmtURL: https://cmt.testdog.cn
+  cmtJs: https://unpkg.com/@waline/client@v3/dist/waline.js
+  cmtCss: https://unpkg.com/@waline/client@v3/dist/waline.css
